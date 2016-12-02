@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+ xmlns:context="http://www.springframework.org/schema/context"  
+ xmlns:p="http://www.springframework.org/schema/p"  
+ xmlns:mvc="http://www.springframework.org/schema/mvc"  
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+ xsi:schemaLocation="http://www.springframework.org/schema/beans  
+      http://www.springframework.org/schema/beans/spring-beans-4.3.xsd  
+      http://www.springframework.org/schema/context  
+      http://www.springframework.org/schema/context/spring-context.xsd  
+      http://www.springframework.org/schema/mvc  
+      http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">  
+     <!-- 启动包扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean -->  
+     <context:component-scan base-package="com.sp" />  
+	 
+	 <!-- 处理器映射器HandlerMapping -->  
+     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>  
+       
+     <!-- 处理器设配器HandlerAdapter -->  
+     <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">  
+         <property name="messageConverters">  
+             <list>  
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"></bean> 
+             </list>  
+         </property>  
+     </bean>   -->
+
+     <!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->  
+	 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"  >
+	 	 <property name="suffix" value=".jsp" />  
+	 	 <property name="prefix" value="/WEB-INF/view/" />  
+	 	 <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>  
+	 </bean>  
+	 
+	 <!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射-->  
+     <mvc:annotation-driven />  
+     
+     <!-- 拦截器 多个拦截器顺序执行 -->
+     <mvc:interceptors>
+     	<mvc:interceptor>
+     	<!-- 
+	     	/**的意思是所有文件夹及里面的子文件夹
+			/*是所有文件夹，不含子文件夹
+			/是web项目的根目录
+     	 -->
+     		<mvc:mapping path="/**"/>
+     		<bean class="com.sp.interceptor.LoginInterceptor"></bean>
+     	</mvc:interceptor>
+     </mvc:interceptors>
+     
+</beans>  

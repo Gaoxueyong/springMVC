@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sp.dao.SysRoleDao" >
+  <resultMap id="BaseResultMap" type="com.sp.entity.SysRole" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="office_id" property="officeId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="enname" property="enname" jdbcType="VARCHAR" />
+    <result column="role_type" property="roleType" jdbcType="VARCHAR" />
+    <result column="data_scope" property="dataScope" jdbcType="CHAR" />
+    <result column="is_sys" property="isSys" jdbcType="VARCHAR" />
+    <result column="useable" property="useable" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, office_id, name, enname, role_type, data_scope, is_sys, useable, create_by, create_date, 
+    update_by, update_date, remarks, del_flag
+  </sql>
+  
+   <!-- 查询条件 -->
+  <sql id="dynamicWhere">
+		<where>
+			<if test="name != null and name != ''">AND name like  '%${name}%' </if>
+			<if test="delFlag != null and delFlag != ''">AND del_flag = #{delFlag} </if>
+		</where>
+   </sql>
+  
+  <insert id="insertSysRole" parameterType="com.sp.entity.SysRole" >
+    insert into sys_role (id, office_id, name, 
+      enname, role_type, data_scope, 
+      is_sys, useable, create_by, 
+      create_date, update_by, update_date, 
+      remarks, del_flag)
+    values (#{id,jdbcType=VARCHAR}, #{officeId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{enname,jdbcType=VARCHAR}, #{roleType,jdbcType=VARCHAR}, #{dataScope,jdbcType=CHAR}, 
+      #{isSys,jdbcType=VARCHAR}, #{useable,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR})
+  </insert>
+   <!-- 根据主键ID删除数据 -->
+  <delete id="deleteSysRoleByPrimaryKeyReal" parameterType="java.lang.String" >
+    delete from sys_role  where id = #{id,jdbcType=VARCHAR}
+  </delete>
+   <!-- 根据主键ID删除数据 改变delFlag状态 -->
+  <update id="deleteSysRoleByPrimaryKey" parameterType="java.util.Map" >
+    update sys_role set del_flag = #{delFlag,jdbcType=CHAR} where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateSysRole" parameterType="com.sp.entity.SysRole" >
+    update sys_role
+    set office_id = #{officeId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      enname = #{enname,jdbcType=VARCHAR},
+      role_type = #{roleType,jdbcType=VARCHAR},
+      data_scope = #{dataScope,jdbcType=CHAR},
+      is_sys = #{isSys,jdbcType=VARCHAR},
+      useable = #{useable,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectSysRoleByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <!-- 获取角色列表 -->
+   <select id="getSysRoleList"  parameterType="java.util.Map" resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from sys_role
+     <include refid="dynamicWhere" /> 
+     <!-- 排序 -->
+     <if test="orderField !=null and orderField!=''">
+	  order by ${orderField} ${orderSeq}
+	 </if>
+	 <if test="orderField==null or orderField==''">
+	 order by id  desc
+	 </if>
+  </select>
+  <!-- 获取角色分页列表 -->
+  <select id="getSysRoleListPage"  parameterType="java.util.Map" resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from sys_role
+     <include refid="dynamicWhere" /> 
+     <!-- 排序 -->
+     <if test="orderField !=null and orderField!=''">
+	  order by ${orderField} ${orderSeq}
+	 </if>
+	 <if test="orderField==null or orderField==''">
+	 order by id  desc
+	 </if>
+	 limit #{startSize},#{pageSize}
+  </select>
+  <!-- 获取角色表总数 -->
+   <select id="getSysRoleListTotalNum"  parameterType="java.util.Map" resultType ="java.lang.Integer" >
+  	 select  count(id) totalNum  from sys_role <include refid="dynamicWhere" /> 
+  </select>
+</mapper>

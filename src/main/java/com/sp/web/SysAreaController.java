@@ -56,7 +56,7 @@ public class SysAreaController {
 		paramerMap.put("currentNo", request.getParameter("currentNo"));
 		paramerMap.put("pageSize", request.getParameter("pageSize"));
 		paramerMap.put("name", request.getParameter("name"));
-		paramerMap.put("childrens", request.getParameter("id"));
+		paramerMap.put("childrens",sysArea.getId());
 		paramerMap.put("orderField", "sort");
 		paramerMap.put("orderSeq", "asc");
 		paramerMap.put("delFlag", "0");

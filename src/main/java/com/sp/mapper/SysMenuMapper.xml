@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sp.dao.SysMenuDao" >
+  <resultMap id="BaseResultMap" type="com.sp.entity.SysMenu" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="parent_ids" property="parentIds" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="DECIMAL" />
+    <result column="href" property="href" jdbcType="VARCHAR" />
+    <result column="target" property="target" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="is_show" property="isShow" jdbcType="CHAR" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="parentName" property="parentName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="listMap" type="java.util.Map" >
+	  <result column="id" property="id" jdbcType="VARCHAR" />
+	  <result column="pId" property="pId" jdbcType="VARCHAR" />
+	  <result column="name" property="name" jdbcType="VARCHAR" />
+	  <result column="parentName" property="parentName" jdbcType="VARCHAR" />
+	  <result column="delFlag" property="delFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, parent_id, parent_ids, name, sort, href, target, icon, is_show, permission, create_by, 
+    create_date, update_by, update_date, remarks, del_flag,parentName
+  </sql>
+  
+  <!-- 查询条件 -->
+  <sql id="dynamicWhere">
+		<where>
+			<if test="name != null and name != ''">AND name like  '%${name}%' </if>
+			<if test="delFlag != null and delFlag != ''">AND del_flag = #{delFlag} </if>
+			<if test="parentId != null and parentId != ''">AND (parent_id = #{parentId} or id= #{parentId}) </if>
+			<if test="childrens != null and childrens != ''">AND (find_in_set('${childrens}',SUBSTRING(parent_ids,1,(LENGTH(parent_ids)-1)))>0 or id='${childrens}') </if>
+		</where>
+   </sql>
+  
+  
+  <insert id="insertSysMenu" parameterType="com.sp.entity.SysMenu" >
+    insert into sys_menu (id, parent_id, parent_ids, 
+      name, sort, href, target, 
+      icon, is_show, permission, 
+      create_by, create_date, update_by, 
+      update_date, remarks, del_flag
+      )
+    values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{parentIds,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{sort,jdbcType=DECIMAL}, #{href,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{isShow,jdbcType=CHAR}, #{permission,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}
+      )
+  </insert>
+  <!-- 物理删除 -->
+  <delete id="deleteSysMenuByPrimaryKeyReal" parameterType="java.lang.String" >
+    delete from sys_menu  where id = #{id,jdbcType=VARCHAR}
+  </delete>
+   <!-- 逻辑删除 -->
+  <update id="deleteSysMenuByPrimaryKey" parameterType="java.util.Map" >
+    update sys_menu set del_flag = #{delFlag} where id = #{id}
+  </update>
+  
+  <update id="updateSysMenu" parameterType="com.sp.entity.SysMenu" >
+    update sys_menu
+    set parent_id = #{parentId,jdbcType=VARCHAR},
+      parent_ids = #{parentIds,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=DECIMAL},
+      href = #{href,jdbcType=VARCHAR},
+      target = #{target,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      is_show = #{isShow,jdbcType=CHAR},
+      permission = #{permission,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectSysMenuByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from  (
+    select s1.*,s2.name as parentName from sys_menu s1 left join sys_menu s2 on s1.id=s2.id
+    )sys_menu
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+   <!-- 获取菜单列表 -->
+   <select id="getSysMenuList"  parameterType="java.util.Map" resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from (
+    select s1.*,s2.name as parentName from sys_menu s1 left join sys_menu s2 on s1.id=s2.id
+    )sys_menu
+     <include refid="dynamicWhere" /> 
+     <!-- 排序 -->
+     <if test="orderField !=null and orderField!=''">
+	  order by ${orderField} ${orderSeq}
+	 </if>
+	 <if test="orderField==null or orderField==''">
+	 order by id  desc
+	 </if>
+  </select>
+  <!-- 获取菜单分页列表 -->
+  <select id="getSysMenuListPage"  parameterType="java.util.Map" resultMap="BaseResultMap">
+  	 select 
+    <include refid="Base_Column_List" />
+    from  (
+    select s1.*,s2.name as parentName from sys_menu s1 left join sys_menu s2 on s1.id=s2.id
+    )sys_menu
+     <include refid="dynamicWhere" /> 
+     <!-- 排序 -->
+     <if test="orderField !=null and orderField!=''">
+	  order by ${orderField} ${orderSeq}
+	 </if>
+	 <if test="orderField==null or orderField==''">
+	 order by id  desc
+	 </if>
+	 limit #{startSize},#{pageSize}
+  </select>
+  <!-- 获取菜单表总数 -->
+   <select id="getSysMenuListTotalNum"  parameterType="java.util.Map" resultType ="java.lang.Integer" >
+  	 select  count(id) totalNum  from sys_menu <include refid="dynamicWhere" /> 
+  </select>
+  
+  <!-- 获取菜单组织数 -->
+  <select id="getSysMenuTreeData"  parameterType="java.util.Map" resultMap="listMap">
+		select id, pId, pIds,name,delFlag,parentName  from (
+		SELECT S.id,S.parent_id as pId,S.parent_ids as pIds,S.name,Y.NAME AS parentName,S.del_flag as delFlag FROM 
+		sys_menu S LEFT JOIN sys_menu Y ON S.parent_id = Y.id
+		)sys_menu where 1=1
+		<if test="delFlag != null and delFlag != ''">AND delFlag = #{delFlag} </if>
+			<if test="parentId != null and parentId != ''">AND pId = #{parentId} </if>  
+  </select>
+</mapper>

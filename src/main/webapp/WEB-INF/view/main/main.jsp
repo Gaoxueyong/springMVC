@@ -258,7 +258,7 @@
 										<ul class="nav nav-list hide" style="margin:0;padding-right:0;"></ul>
 									</li>
 									<li>
-										<a data-href=".menu3-30" href="${ctx}/sys/office/sysOfficeIndex" target="mainFrame"><i class=" icon-list-alt"></i>&nbsp;菜单管理</a>
+										<a data-href=".menu3-30" href="${ctx}/sys/menu/sysMenuIndex" target="mainFrame"><i class=" icon-list-alt"></i>&nbsp;菜单管理</a>
 										<ul class="nav nav-list hide" style="margin:0;padding-right:0;"></ul>
 									</li>
 									<!-- <li>

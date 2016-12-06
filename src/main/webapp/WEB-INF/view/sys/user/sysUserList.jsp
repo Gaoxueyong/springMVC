@@ -42,7 +42,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/sys/user/list">用户列表</a></li>
-		<li><a href="${ctx}/sys/user/manage">用户添加</a></li>
+		<li><a href="${ctx}/sys/user/sysUserForm">用户添加</a></li>
 	</ul>
 	<form:form id="searchForm" modelAttribute="sysUser" action="${ctx}/sys/user/list" method="post" class="breadcrumb form-search">
 		<input id="currentNo" name="currentNo" type="hidden" value="${page.currentNo}"/>
@@ -88,7 +88,7 @@
 					<fmt:formatDate value="${user.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td  style="text-align: center;">
-					<a href="${ctx}/sys/user/manage?id=${user.id}">修改</a>
+					<a href="${ctx}/sys/user/sysUserForm?id=${user.id}">修改</a>
 					<a href="${ctx}/sys/user/delSysUserById?id=${user.id}" onclick="return confirmx('确认要删除该用户吗？', this.href)">删除</a>
 				</td>
 			</tr>

@@ -59,7 +59,7 @@
 				<th style="text-align: center;width:20%">区域编码</th>
 				<th style="text-align: center;width:10%"">排序</th>
 				<th style="text-align: center;">备注</th>
-				<th style="text-align: center;width:20%"">操作</th>
+				<th style="text-align: center;width:10%"">操作</th>
 			</tr>
 		</thead>
 		<tbody>

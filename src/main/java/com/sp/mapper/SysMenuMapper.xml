@@ -92,7 +92,7 @@
     select 
     <include refid="Base_Column_List" />
     from  (
-    select s1.*,s2.name as parentName from sys_menu s1 left join sys_menu s2 on s1.id=s2.id
+    select s1.*,s2.name as parentName from sys_menu s1 left join sys_menu s2 on s1.parent_id=s2.id
     )sys_menu
     where id = #{id,jdbcType=VARCHAR}
   </select>
@@ -102,7 +102,7 @@
   	 select 
     <include refid="Base_Column_List" />
     from (
-    select s1.*,s2.name as parentName from sys_menu s1 left join sys_menu s2 on s1.id=s2.id
+    select s1.*,s2.name as parentName from sys_menu s1 left join sys_menu s2 on s1.parent_id=s2.id
     )sys_menu
      <include refid="dynamicWhere" /> 
      <!-- 排序 -->
@@ -118,7 +118,7 @@
   	 select 
     <include refid="Base_Column_List" />
     from  (
-    select s1.*,s2.name as parentName from sys_menu s1 left join sys_menu s2 on s1.id=s2.id
+    select s1.*,s2.name as parentName from sys_menu s1 left join sys_menu s2 on s1.parent_id=s2.id
     )sys_menu
      <include refid="dynamicWhere" /> 
      <!-- 排序 -->

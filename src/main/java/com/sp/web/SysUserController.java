@@ -49,7 +49,7 @@ public class SysUserController {
 	 * Create at: 2016年11月15日 下午2:21:27
 	 */
 	@RequestMapping(value="list")
-	public String systemMain(HttpServletRequest request,HttpServletResponse response,Model model,SysUser sysUser){
+	public String list(HttpServletRequest request,HttpServletResponse response,Model model,SysUser sysUser){
 	
 		Map<String, Object> paramerMap = new HashMap<String,Object>();
 		paramerMap.put("currentNo", request.getParameter("currentNo"));
@@ -70,8 +70,8 @@ public class SysUserController {
 	 * @author: Gaoxueyong
 	 * Create at: 2016年11月15日 下午2:23:35
 	 */
-	@RequestMapping(value="manage")
-	public String manageSysUser(HttpServletRequest request,HttpServletResponse response,Model model){
+	@RequestMapping(value="sysUserForm")
+	public String sysUserForm(HttpServletRequest request,HttpServletResponse response,Model model){
 		String id = request.getParameter("id");
 		SysUser sysUser = new SysUser();
 		if(!"".equals(id) && id!=null){
@@ -89,7 +89,7 @@ public class SysUserController {
 		model.addAttribute("sysUser", sysUser);
 		model.addAttribute("loginFlag", "1");//绑定默认值
 		model.addAttribute("list", list);
-		return "sys/user/sysUserManage";
+		return "sys/user/sysUserForm";
 	}
 	
 	/**

@@ -56,6 +56,7 @@ public class SysOfficeController {
 		paramerMap.put("currentNo", request.getParameter("currentNo"));
 		paramerMap.put("pageSize", request.getParameter("pageSize"));
 		paramerMap.put("name", request.getParameter("name"));
+		paramerMap.put("childrens", sysOffice.getParentId());
 		paramerMap.put("delFlag","0");
 		Page<SysOffice> page = sysOfficeService.getSysOfficListPage(new Page<SysOffice>(), paramerMap);
 		//List<SysOffice> list = sysOfficeService.getSysOfficeList(paramerMap);
@@ -131,18 +132,15 @@ public class SysOfficeController {
 	 * Create at: 2016年11月15日 下午2:23:35
 	 */
 	@RequestMapping(value="sysOfficeForm")
-	public String sysOfficeForm(HttpServletRequest request,HttpServletResponse response,Model model){
-		String id = request.getParameter("id");
-		String parentId = request.getParameter("parentId");
-		SysOffice sysOffice = new SysOffice();
-		if(!"".equals(id) && id!=null){//修改
-			sysOffice = sysOfficeService.selectSysOfficeByPrimaryKey(id);
-		}else if(!"".equals(parentId) && parentId!=null){
-			SysOffice office = sysOfficeService.selectSysOfficeByPrimaryKey(parentId);
+	public String sysOfficeForm(HttpServletRequest request,HttpServletResponse response,Model model,SysOffice sysOffice){
+		if(!"".equals(sysOffice.getId()) && sysOffice.getId()!=null){//修改
+			sysOffice = sysOfficeService.selectSysOfficeByPrimaryKey(sysOffice.getId());
+		}else if(!"".equals(sysOffice.getParentId()) && sysOffice.getParentId()!=null){
+			SysOffice office = sysOfficeService.selectSysOfficeByPrimaryKey(sysOffice.getParentId());
 			if(office!=null){
 				sysOffice.setParentName(office.getName());
 				sysOffice.setParentId(office.getId());
-				sysOffice.setParentIds(office.getParentId()+office.getId()+",");
+				sysOffice.setParentIds(office.getParentIds()+office.getId()+",");
 			}
 		}
 		model.addAttribute("sysOffice", sysOffice);

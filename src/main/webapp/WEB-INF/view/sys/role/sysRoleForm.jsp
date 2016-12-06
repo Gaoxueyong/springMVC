@@ -64,7 +64,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li><a href="${ctx}/sys/role/list">角色列表</a></li>
-		<li class="active"><a href="${ctx}/sys/role/form?id=${sysRole.id}">角色${not empty sysRole.id?'修改':'添加'}</a></li>
+		<li class="active"><a href="${ctx}/sys/role/sysRoleForm?id=${sysRole.id}">角色${not empty sysRole.id?'修改':'添加'}</a></li>
 	</ul><br/>
 	<form:form  id="inputForm" modelAttribute="sysRole" action="${ctx}/sys/role/saveSysRole" method="post" class="form-horizontal">
 		<form:hidden path="id" htmlEscape="false" maxlength="50" value="${sysRole.id }"   />

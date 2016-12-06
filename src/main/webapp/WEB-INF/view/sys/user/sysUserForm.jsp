@@ -64,7 +64,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li><a href="${ctx}/sys/user/list">用户列表</a></li>
-		<li class="active"><a href="${ctx}/sys/user/manage?id=${sysUser.id}">用户${not empty sysUser.id?'修改':'添加'}</a></li>
+		<li class="active"><a href="${ctx}/sys/user/sysUserForm?id=${sysUser.id}">用户${not empty sysUser.id?'修改':'添加'}</a></li>
 	</ul><br/>
 	<form:form  id="inputForm" modelAttribute="sysUser" action="${ctx}/sys/user/saveSysUser" method="post" class="form-horizontal">
 		<form:hidden path="id" htmlEscape="false" maxlength="50" value="${sysUser.id }"   />

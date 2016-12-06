@@ -35,7 +35,7 @@
 		<li class="active"><a href="${ctx}/sys/office/list?parentId=${sysOffice.parentId}">机构列表</a></li>
 		<li><a href="${ctx}/sys/office/sysOfficeForm?parentId=${sysOffice.parentId}">机构添加</a></li>
 	</ul>
-	<form:form id="searchForm" modelAttribute="sysOffice" action="${ctx}/sys/office/list?parentId=${sysOffice.id}" method="post" class="breadcrumb form-search">
+	<form:form id="searchForm" modelAttribute="sysOffice" action="${ctx}/sys/office/list?parentId=${sysOffice.parentId}" method="post" class="breadcrumb form-search">
 		<input id="currentNo" name="currentNo" type="hidden" value="${page.currentNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">

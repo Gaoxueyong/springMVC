@@ -75,10 +75,10 @@
 		}
 		//弹出选择area的对话框
 		function showArea(){
-			top.$.jBox.open("iframe:${ctx}/sys/area/sysAreaTree?id&module=${module}&checked=${checked}&extId=${extId}&isAll=${isAll}", "选择${title}", 300, 420, {
+			top.$.jBox.open("iframe:${ctx}/sys/area/sysAreaTree?id&module=${module}&checked=${checked}&extId=${extId}&isAll=${isAll}", "选择${title}", 300, $(top.document).height()-200, {
 				buttons:{"确定":"ok", "关闭":true}, 
 				loaded:function(h){
-					$("#jbox-iframe").css("height","98%");
+					$(".jbox-content", top.document).css("overflow-y","hidden");
 				},submit: function (v, h, f) { 
 					if(h.length>0){
 					 var  array = h[0].firstChild.contentWindow.callBackFu();

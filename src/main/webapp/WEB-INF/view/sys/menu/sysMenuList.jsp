@@ -56,7 +56,7 @@
 		<thead>
 			<tr>
 				<th style="text-align: center;width:10%"">菜单名称</th>
-				<!-- <th style="text-align: center;width:10%">上级名称</th> -->
+				<th style="text-align: center;width:10%">上级名称</th>
 				<th style="text-align: center;width:10%">权限标识</th>
 				<th style="text-align: center;">连接</th>
 				<th style="text-align: center;width:5%">图标</th>
@@ -70,7 +70,7 @@
 		<c:forEach items="${page.list}" var="menu">
 			<tr>
 				<td  style="text-align: center;">${menu.name}</td>
-				<%-- <td  style="text-align: center;">${menu.parentName }</td> --%>
+				<td  style="text-align: center;">${menu.parentName }</td>
 				<td  style="text-align: center;">${menu.permission }</td>
 				<td  style="text-align: left;">${menu.href }</td>
 				<td  style="text-align: center;"><i id="iconShow" class="${menu.icon}"></i></td>

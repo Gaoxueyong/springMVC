@@ -50,7 +50,7 @@ public class SysRoleController {
 	 * Create at: 2016年11月15日 下午2:21:27
 	 */
 	@RequestMapping(value="list")
-	public String systemMain(HttpServletRequest request,HttpServletResponse response,Model model,SysRole sysRole){
+	public String list(HttpServletRequest request,HttpServletResponse response,Model model,SysRole sysRole){
 	
 		Map<String, Object> paramerMap = new HashMap<String,Object>();
 		paramerMap.put("currentNo", request.getParameter("currentNo"));
@@ -72,8 +72,8 @@ public class SysRoleController {
 	 * @author: Gaoxueyong
 	 * Create at: 2016年11月15日 下午2:23:35
 	 */
-	@RequestMapping(value="form")
-	public String manageSysRole(HttpServletRequest request,HttpServletResponse response,Model model){
+	@RequestMapping(value="sysRoleForm")
+	public String sysRoleForm(HttpServletRequest request,HttpServletResponse response,Model model){
 		String id = request.getParameter("id");
 		SysRole sysRole  = new SysRole();
 		if(!"".equals(id) && id!=null){

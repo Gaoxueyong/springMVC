@@ -42,7 +42,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/sys/user/list">角色列表</a></li>
-		<li><a href="${ctx}/sys/role/form">角色添加</a></li>
+		<li><a href="${ctx}/sys/role/sysRoleForm">角色添加</a></li>
 	</ul>
 	<form:form id="searchForm" modelAttribute="sysRole" action="${ctx}/sys/role/list" method="post" class="breadcrumb form-search">
 		<input id="currentNo" name="currentNo" type="hidden" value="${page.currentNo}"/>

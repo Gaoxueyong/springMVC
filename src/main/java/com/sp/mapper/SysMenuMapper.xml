@@ -39,11 +39,11 @@
 		<where>
 			<if test="name != null and name != ''">AND name like  '%${name}%' </if>
 			<if test="delFlag != null and delFlag != ''">AND del_flag = #{delFlag} </if>
+			<if test="isShow != null and isShow != ''">AND is_show = #{isShow} </if>
 			<if test="parentId != null and parentId != ''">AND (parent_id = #{parentId} or id= #{parentId}) </if>
 			<if test="childrens != null and childrens != ''">AND (find_in_set('${childrens}',SUBSTRING(parent_ids,1,(LENGTH(parent_ids)-1)))>0 or id='${childrens}') </if>
 		</where>
    </sql>
-  
   
   <insert id="insertSysMenu" parameterType="com.sp.entity.SysMenu" >
     insert into sys_menu (id, parent_id, parent_ids, 

@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>  
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">  
  <html>
@@ -92,7 +93,6 @@
 						});
 						// 二级标题
 						$(menuId + " .accordion-heading a").click(function(){
-							debugger;
 							$(menuId + " .accordion-toggle i").removeClass('icon-chevron-down').addClass('icon-chevron-right');
 							if(!$($(this).attr('data-href')).hasClass('in')){
 								$(this).children("i").removeClass('icon-chevron-right').addClass('icon-chevron-down');
@@ -100,7 +100,7 @@
 						});
 						// 二级内容
 						$(menuId + " .accordion-body a").click(function(){
-							debugger;
+							
 							$(menuId + " li").removeClass("active");
 							$(menuId + " li i").removeClass("icon-white");
 							$(this).parent().addClass("active");
@@ -108,7 +108,7 @@
 						});
 						// 展现三级
 						$(menuId + " .accordion-inner a").click(function(){
-							debugger;
+							
 							var href = $(this).attr("data-href");
 							if($(href).length > 0){
 								$(href).toggle().parent().toggle();
@@ -210,22 +210,13 @@
 				
 				<div class="nav-collapse">
 					<ul id="menu" class="nav" style="*white-space:nowrap;float:none;">
-								<li class="menu active">
-										<a class="menu" href="javascript:" data-href="#" data-id="27"><span>我的面板</span></a>
+						<c:forEach items="${menuListFirst }" var="ml">
+							<c:if test="${fn:length(fn:split(ml.parentIds,',')) eq 2}">
+								<li class="menu"> 
+									<a class="menu" href="javascript:void(0);" data-href="${ctx}/main/menuTree?parentId=${ml.id}" data-id="${ml.id}"><span>${ml.name }</span></a>
 								</li>
-								<li class="menu">
-										<a class="menu" href="javascript:" data-href="#" data-id="62"><span>在线办公</span></a>
-								</li>
-								<li class="menu">
-									
-										<a class="menu" href="javascript:" data-href="#" data-id="31"><span>内容管理</span></a>
-								</li>
-								<li class="menu">
-										<a class="menu" href="javascript:" data-href="#" data-id="2"><span>系统设置</span></a>
-								</li>
-								<li class="menu">
-										<a class="menu" href="javascript:" data-href="#" data-id="79"><span>代码生成</span></a>
-								</li>
+							</c:if>
+						</c:forEach>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>
@@ -233,56 +224,6 @@
 	    <div class="container-fluid">
 			<div id="content" class="row-fluid">
 				<div id="left" style="width: 160px; height: 385px;">
-					<div class="accordion" id="menu-27">
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#menu-27" data-href="#collapse-28" href="#collapse-28" title=""><i class="icon-chevron-down"></i>&nbsp;个人信息</a>
-						</div>
-						<div id="collapse-28" class="accordion-body collapse in">
-							<div class="accordion-inner">
-								<ul class="nav nav-list">
-									<li class="active">
-										<a data-href=".menu3-29" href="${ctx}/sys/user/list" target="mainFrame"><i class="icon-user icon-white"></i>&nbsp;用户管理</a>
-										<ul class="nav nav-list hide" style="margin:0;padding-right:0;"></ul>
-									</li>
-									<li>
-										<a data-href=".menu3-30" href="${ctx}/sys/office/sysOfficeIndex" target="mainFrame"><i class="icon-th-large"></i>&nbsp;机构管理</a>
-										<ul class="nav nav-list hide" style="margin:0;padding-right:0;"></ul>
-									</li>
-									<li>
-										<a data-href=".menu3-30" href="${ctx}/sys/area/sysAreaIndex" target="mainFrame"><i class="icon-th"></i>&nbsp;区域管理</a>
-										<ul class="nav nav-list hide" style="margin:0;padding-right:0;"></ul>
-									</li>
-									<li>
-										<a data-href=".menu3-30" href="${ctx}/sys/role/list" target="mainFrame"><i class="icon-lock"></i>&nbsp;角色管理</a>
-										<ul class="nav nav-list hide" style="margin:0;padding-right:0;"></ul>
-									</li>
-									<li>
-										<a data-href=".menu3-30" href="${ctx}/sys/menu/sysMenuIndex" target="mainFrame"><i class=" icon-list-alt"></i>&nbsp;菜单管理</a>
-										<ul class="nav nav-list hide" style="margin:0;padding-right:0;"></ul>
-									</li>
-									<!-- <li>
-										<a data-href=".menu3-30" href="#" target="mainFrame"><i class="icon-th icon-white"></i>&nbsp;修改密码</a>
-										<ul class="nav nav-list hide" style="margin:0;padding-right:0;"></ul>
-									</li> -->
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#menu-27" data-href="#collapse-71" href="#collapse-71" title=""><i class="icon-chevron-right"></i>&nbsp;文件管理</a>
-						</div>
-						<div id="collapse-71" class="accordion-body collapse ">
-							<div class="accordion-inner">
-								<ul class="nav nav-list">
-									<li><a data-href=".menu3-56" href="#" target="mainFrame"><i class="icon-folder-open"></i>&nbsp;文件管理</a>
-										<ul class="nav nav-list hide" style="margin:0;padding-right:0;">
-										</ul></li></ul>
-							</div>
-						</div>
-					</div>
-					</div>
 				</div>
 				<div id="openClose" class="close" style="height: 380px;">&nbsp;</div>
 				<div id="right" style="height: 385px; width: 1242px;">

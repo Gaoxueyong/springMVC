@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-12-07 10:58:11
+Date: 2016-12-09 10:46:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -95,6 +95,7 @@ INSERT INTO `sys_menu` VALUES ('20161206113400017', '28', '0,1,27,28,', '区域�
 INSERT INTO `sys_menu` VALUES ('20161206113500027', '28', '0,1,27,28,', '角色管理', '50', '/sys/role/list', null, 'icon-lock', '1', '', '9', '2016-12-06 11:35:27', null, null, '', '0');
 INSERT INTO `sys_menu` VALUES ('20161206113600006', '28', '0,1,27,28,', '菜单管理', '60', '/sys/menu/sysMenuIndex', null, 'icon-list-alt', '1', '', '9', '2016-12-06 11:36:06', '9', '2016-12-06 11:51:20', '', '0');
 INSERT INTO `sys_menu` VALUES ('20161206143500041', '1', '0,1,', '巨魔战将', null, '', null, 'icon-adjust', '1', '', '9', '2016-12-06 14:35:42', null, null, '', '1');
+INSERT INTO `sys_menu` VALUES ('20161207110200030', '71', '0,1,27,71,', '个人文件', '30', '', null, 'icon-folder-open-alt', '1', '', '9', '2016-12-07 11:02:30', null, null, '', '0');
 INSERT INTO `sys_menu` VALUES ('23', '2', '0,1,2,', '关于帮助', '990', null, null, null, '0', null, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', null, '0');
 INSERT INTO `sys_menu` VALUES ('27', '1', '0,1,', '我的面板', '100', null, null, null, '1', null, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', null, '0');
 INSERT INTO `sys_menu` VALUES ('28', '27', '0,1,27,', '个人信息', '30', null, null, null, '1', null, '1', '2013-05-27 08:00:00', '1', '2013-05-27 08:00:00', null, '0');
@@ -191,13 +192,30 @@ CREATE TABLE `sys_role` (
 INSERT INTO `sys_role` VALUES ('20161202144800006', null, '系统管理员', 'xtgly', null, null, null, '1', '9', '2016-12-02 14:48:07', '9', '2016-12-02 15:24:57', '系统管理员', '1');
 INSERT INTO `sys_role` VALUES ('20161205113200010', null, '超级管理员', 'admin', null, null, null, '1', '9', '2016-12-05 11:32:10', null, null, '超级管理员', '0');
 INSERT INTO `sys_role` VALUES ('20161205113200024', null, '管理员', 'gly', null, null, null, '1', '9', '2016-12-05 11:32:25', '9', '2016-12-05 11:32:44', '管理员 非系统管理员', '0');
+INSERT INTO `sys_role` VALUES ('20161208100700019', null, '测试角色', 'csjs', null, null, null, '1', '9', '2016-12-08 10:07:19', null, null, '', '1');
+INSERT INTO `sys_role` VALUES ('20161208102600054', null, '测试角色', 'csjs', null, null, null, '1', '9', '2016-12-08 10:26:55', null, null, '', '1');
+INSERT INTO `sys_role` VALUES ('20161208103000002', null, '测试角色2', 'csjs2', null, null, null, '1', '9', '2016-12-08 10:30:03', '9', '2016-12-08 10:30:18', '', '1');
+
+-- ----------------------------
+-- Table structure for sys_role_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role_menu`;
+CREATE TABLE `sys_role_menu` (
+  `role_id` varchar(64) NOT NULL COMMENT '角色编号',
+  `menu_id` varchar(64) NOT NULL COMMENT '菜单编号',
+  PRIMARY KEY (`role_id`,`menu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色-菜单';
+
+-- ----------------------------
+-- Records of sys_role_menu
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `id` int(50) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `id` varchar(50) NOT NULL COMMENT '编号',
   `company_id` varchar(64) DEFAULT NULL COMMENT '归属公司',
   `office_id` varchar(64) DEFAULT NULL COMMENT '归属部门',
   `login_name` varchar(100) NOT NULL COMMENT '登录名',
@@ -226,12 +244,11 @@ CREATE TABLE `sys_user` (
   KEY `sys_user_company_id` (`company_id`),
   KEY `sys_user_update_date` (`update_date`),
   KEY `sys_user_del_flag` (`del_flag`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('9', null, null, 'gxy', '123', '000001', '高学勇', 'xueyong89@126.com', '15838258295', '15838258295', null, null, '127.0.0.1', '2016-12-07 10:31:18', '1', '1', '2016-11-16 16:31:07', '1', '2016-11-16 16:31:07', '15838258295', '0', null, null);
 INSERT INTO `sys_user` VALUES ('10', null, null, 'xkjm', '123', '000002', '虚空假面', '', '', '', null, null, null, null, '1', '1', '2016-11-18 09:42:19', '1', '2016-11-18 09:42:19', 'Dota英雄', '0', null, null);
 INSERT INTO `sys_user` VALUES ('11', null, null, 'jmzj', '123', '000003', '巨魔战将', '', '', '', null, null, null, null, '1', '1', '2016-11-18 09:42:57', '1', '2016-11-18 09:42:57', 'Dota英雄', '0', null, null);
 INSERT INTO `sys_user` VALUES ('12', null, null, 'klw', '123', '000004', '李奥瑞克王', '', '', '', null, null, null, null, '1', '1', '2016-11-18 09:44:45', '1', '2016-11-18 09:44:45', 'Dota英雄', '0', null, null);
@@ -243,6 +260,7 @@ INSERT INTO `sys_user` VALUES ('17', null, null, 'hz', '123', '000009', '幻影�
 INSERT INTO `sys_user` VALUES ('18', null, null, 'az', '123', '000010', '矮人狙击手', '', '', '', null, null, null, null, '1', '1', '2016-11-18 09:49:42', '1', '2016-11-18 09:49:42', 'Dota英雄', '0', null, null);
 INSERT INTO `sys_user` VALUES ('19', null, null, 'fw', '123', '000011', '斧王', '', '', '', null, null, null, null, '1', '1', '2016-11-18 09:50:17', '1', '2016-11-18 09:50:17', 'Dota英雄', '0', null, null);
 INSERT INTO `sys_user` VALUES ('20', null, null, 'dom', '123', '000012', '末日使者', '', '', '', null, null, null, null, '1', '1', '2016-11-18 09:51:23', '1', '2016-11-18 09:51:23', 'Dota英雄', '0', null, null);
+INSERT INTO `sys_user` VALUES ('20161208160100011', null, '', 'csry', '1234', '000028', '测试人员', '', '', '', null, null, null, null, '1', '9', '2016-12-08 16:01:11', '9', '2016-12-09 10:28:50', '', '0', null, '山东省总公司');
 INSERT INTO `sys_user` VALUES ('21', null, null, 'xg', '123', '000013', '食尸鬼', '', '', '', null, null, null, null, '1', '1', '2016-11-18 09:51:59', '1', '2016-11-18 09:51:59', '末日使者', '0', null, null);
 INSERT INTO `sys_user` VALUES ('22', null, null, 'sl', '123', '000014', '神灵武士', '', '', '', null, null, null, null, '1', '1', '2016-11-18 09:52:31', '1', '2016-11-18 09:52:31', 'Dota英雄', '0', null, null);
 INSERT INTO `sys_user` VALUES ('23', null, null, 'sv', '123', '000015', 'SV', '', '', '', null, null, null, null, '1', '1', '2016-11-18 11:48:05', '1', '2016-11-18 11:48:05', 'Dota英雄', '0', null, null);
@@ -256,3 +274,20 @@ INSERT INTO `sys_user` VALUES ('30', null, null, 'hdqs', '123', '000022', '混�
 INSERT INTO `sys_user` VALUES ('31', null, null, 'yc', '123', '000023', '隐形刺客', '', '', '', null, null, null, null, '1', '1', '2016-11-18 14:02:23', '1', '2016-11-18 14:02:23', 'Dota英雄', '0', null, null);
 INSERT INTO `sys_user` VALUES ('32', null, null, 'lq', '123', '000024', '龙骑士', '', '', '', null, null, null, null, '1', '1', '2016-11-18 14:04:48', '1', '2016-11-18 14:04:48', 'Dota英雄', '0', null, null);
 INSERT INTO `sys_user` VALUES ('33', null, null, 'cmss', '123', '000025', '沉默术士', '', '', '', null, null, null, null, '1', '1', '2016-11-18 14:06:20', '1', '2016-11-18 14:06:20', 'Dota英雄', '0', null, null);
+INSERT INTO `sys_user` VALUES ('9', null, null, 'gxy', '123', '000001', '高学勇', 'xueyong89@126.com', '15838258295', '15838258295', null, null, '127.0.0.1', '2016-12-09 10:36:35', '1', '1', '2016-11-16 16:31:07', '1', '2016-11-16 16:31:07', '15838258295', '0', null, null);
+
+-- ----------------------------
+-- Table structure for sys_user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user_role`;
+CREATE TABLE `sys_user_role` (
+  `user_id` varchar(64) NOT NULL COMMENT '用户编号',
+  `role_id` varchar(64) NOT NULL COMMENT '角色编号',
+  PRIMARY KEY (`user_id`,`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户-角色';
+
+-- ----------------------------
+-- Records of sys_user_role
+-- ----------------------------
+INSERT INTO `sys_user_role` VALUES ('20161208160100011', '');
+INSERT INTO `sys_user_role` VALUES ('20161208160100011', '20161205113200024');

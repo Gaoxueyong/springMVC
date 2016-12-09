@@ -103,4 +103,15 @@ public interface SysMenuDao {
      * Create at: 2016年12月5日 下午2:33:43
      */
     List<Map<String, Object>> getSysMenuTreeData(Map<String, Object> paramerMap);
+    
+    /**
+     * 
+     * @Description 根据角色id获取改角色的角色树  那些选中了 那些没选中
+     * @param roleId
+     * @return
+     * @author: Gaoxueyong
+     * Create at: 2016年12月7日 下午5:46:11
+     */
+    List<Map<String, Object>> getSysMenuTreeDataChecked(Map<String, Object> paramerMap);
+    
 }

@@ -59,6 +59,28 @@
 				}
 			});
 		});
+		
+		//弹出选择area的对话框
+		function showOffice(){
+			top.$.jBox.open("iframe:${ctx}/sys/office/sysOfficeTree?id&module=${module}&checked=${checked}&extId=${extId}&isAll=${isAll}", "选择${title}", 300, 420, {
+				buttons:{"确定":"ok", "关闭":true}, 
+				loaded:function(h){
+					$("#jbox-iframe").css("height","98%");
+				},submit: function (v, h, f) { 
+					if(h.length>0){
+					 var  array = h[0].firstChild.contentWindow.callBackFu();
+					 if(array.length>0){
+						 var even = array[0];
+						 var treeId = array[1];
+						 var treeNode = array[2];
+						 //treeNode.id   4 treeNode.name = '历城区'  treeNode.pId 3  treeNode.pIds 0,1,2
+						 $("#officeId").val(treeNode.id);
+						 $("#office").val(treeNode.name);
+					 }
+					}
+				}	
+			})
+		}
 	</script> 
 </head>
 <body>
@@ -68,6 +90,7 @@
 	</ul><br/>
 	<form:form  id="inputForm" modelAttribute="sysUser" action="${ctx}/sys/user/saveSysUser" method="post" class="form-horizontal">
 		<form:hidden path="id" htmlEscape="false" maxlength="50" value="${sysUser.id }"   />
+		<form:hidden path="roleStr" htmlEscape="false" maxlength="50" value="${sysUser.roleStr }"  />
 		<%-- <sys:message content="${message}"/> --%>
 		<%-- <div class="control-group">
 			<label class="control-label">头像:</label>
@@ -83,14 +106,14 @@
 					title="公司" url="/sys/office/treeData?type=1" cssClass="required"/>
 			</div>
 		</div>
+		 --%>
 		<div class="control-group">
 			<label class="control-label">归属部门:</label>
 			<div class="controls">
-                <sys:treeselect id="office" name="office.id" value="${user.office.id}" labelName="office.name" labelValue="${user.office.name}"
-					title="部门" url="/sys/office/treeData?type=2" cssClass="required" notAllowSelectParent="true"/>
+				<input id="officeId" name="officeId" class="" type="hidden" value="${sysUser.officeId }">
+				<input id="office" name="office" readonly="readonly"   type="text" value="${sysUser.office}" data-msg-required="" style=""><a id="areaButton" href="javascript:" onclick="showOffice();" class="btn  " style="">&nbsp;<i class="icon-search"></i>&nbsp;</a>&nbsp;&nbsp;
 			</div>
-		</div> --%>
-		 
+		</div>
 		<div class="control-group">
 			<label class="control-label">工号:</label>
 			<div class="controls">
@@ -169,13 +192,32 @@
 					<form:options items="${fns:getDictList('sys_user_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 				</form:select>
 		</div> --%>
-		<%-- <div class="control-group">
+		<div class="control-group">
 			<label class="control-label">用户角色:</label>
 			<div class="controls">
-				<form:checkboxes path="roleIdList" items="${allRoles}" itemLabel="name" itemValue="id" htmlEscape="false" class="required"/>
+				<c:forEach items="${roleList }" var="rl" varStatus="rli">
+					<c:set var="check" value="false"/>
+					<c:forEach items="${userRoleList }" var="ur">
+						<c:if test="${rl.id eq ur.roleId }"><c:set var="check" value="true"/></c:if>
+					</c:forEach>
+					<c:choose>
+							<c:when test="${check}">
+								<span>
+									<input id="roleList${rli.index+1 }" name="roleStr" class="required" checked="checked" type="checkbox" value="${rl.id }" >
+									<label for="roleList${rli.index+1 }">${rl.name }</label>
+								</span>
+							</c:when>
+							<c:otherwise>
+								<span>
+									<input id="roleList${rli.index+1 }" name="roleStr" class="required" type="checkbox" value="${rl.id }" >
+									<label for="roleList${rli.index+1 }">${rl.name }</label>
+								</span>
+							</c:otherwise>
+						</c:choose>
+				</c:forEach>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
-		</div> --%>
+		</div>
 		<div class="control-group">
 			<label class="control-label">备注:</label>
 			<div class="controls">

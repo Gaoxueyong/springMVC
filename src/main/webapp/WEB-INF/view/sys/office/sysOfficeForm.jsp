@@ -118,7 +118,6 @@
 				</div>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
-		</div>
 		</c:if>
 		 <div class="control-group">
 			<label class="control-label">归属区域:</label>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sp.dao.SysUserDao" >
   <resultMap id="BaseResultMap" type="com.sp.entity.SysUser" >
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="company_id" property="companyId" jdbcType="VARCHAR" />
     <result column="company" property="company" jdbcType="VARCHAR" />
     <result column="office_id" property="officeId" jdbcType="VARCHAR" />
@@ -40,19 +40,8 @@
 		</where>
    </sql>
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from sys_user
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from sys_user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  
-  <insert id="saveSysUser" parameterType="com.sp.entity.SysUser" >
-    insert into sys_user (company_id,company, office_id,office, 
+  <insert id="insertSysUser" parameterType="com.sp.entity.SysUser" >
+    insert into sys_user (id,company_id,company, office_id,office, 
       login_name, password, no, 
       name, email, phone, 
       mobile, user_type, photo, 
@@ -60,7 +49,7 @@
       create_by, create_date, update_by, 
       update_date, remarks, del_flag
       )
-    values (#{companyId,jdbcType=VARCHAR},#{company,jdbcType=VARCHAR}, #{officeId,jdbcType=VARCHAR},#{office,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR},#{companyId,jdbcType=VARCHAR},#{company,jdbcType=VARCHAR}, #{officeId,jdbcType=VARCHAR},#{office,jdbcType=VARCHAR}, 
       #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{userType,jdbcType=CHAR}, #{photo,jdbcType=VARCHAR}, 
@@ -70,7 +59,23 @@
       )
   </insert>
   
+  <!-- 逻辑删除 -->
+  <update id="deleteSysUserByPrimaryKey" parameterType="java.util.Map" >
+   update sys_user  set   del_flag = #{delFlag}  where id = #{id}
+  </update>
+  
+  <!-- 物理删除 -->
+  <delete id="deleteSysUserByPrimaryKeyReal" parameterType="java.lang.String" >
+    delete from sys_user  where id = #{id,jdbcType=VARCHAR}
+  </delete>
    
+   
+   <update id="updateSysUserStatus" parameterType="com.sp.entity.SysUser" >
+    update sys_user  set
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      login_date = #{loginDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
   <update id="updateSysUser" parameterType="com.sp.entity.SysUser" >
     update sys_user  set
       company_id = #{companyId,jdbcType=VARCHAR},
@@ -95,8 +100,15 @@
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       remarks = #{remarks,jdbcType=VARCHAR},
       del_flag = #{delFlag,jdbcType=CHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="selectSysUserByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
   
    <select id="getSysUserList"  parameterType="java.util.Map" resultMap="BaseResultMap">
   	 select 

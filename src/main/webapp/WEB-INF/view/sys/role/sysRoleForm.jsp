@@ -33,6 +33,12 @@
 	<script type="text/javascript" src="${ctx }/static/static/My97DatePicker/WdatePicker.js" ></script>
 	<script type="text/javascript" src="${ctx }/static/static/common/mustache.min.js" ></script>
 	<script type="text/javascript" src="${ctx }/static/static/common/jeesite.js" > </script>
+	
+	<link href="${ctx}/static/static/jquery-ztree/3.5.12/css/zTreeStyle/zTreeStyle.min.css" rel="stylesheet" type="text/css"/>
+	<script src="${ctx}/static/static/jquery-ztree/3.5.12/js/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
+	<style type="text/css">
+		.ztree {overflow:auto;margin:0;_margin-top:10px;padding:10px 0 0 10px;}
+	</style>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#no").focus();
@@ -45,6 +51,13 @@
 					confirmNewPassword: {equalTo: "输入与上面相同的密码"}
 				},
 				submitHandler: function(form){
+					debugger;
+					var array = [];
+					var array_checkedNodes = $.fn.zTree.getZTreeObj("ztree").getCheckedNodes()
+					$.each(array_checkedNodes,function(){
+						array.push(this.id);
+					})
+					$("input[name='roleMenus']").val(array.join(","));
 					loading('正在提交，请稍等...');
 					form.submit();
 				},
@@ -59,6 +72,24 @@
 				}
 			});
 		});
+		
+		
+		var setting = {data:{simpleData:{enable:true,idKey:"id",pIdKey:"pId",rootPId:'0'}},
+			callback:{onClick:function(event, treeId, treeNode){
+				
+				    }
+			},
+			check:{
+				enable:true
+			}
+		};
+			
+		function refreshTree(){
+			$.getJSON("${ctx}/sys/menu/sysMenuTreeDataCheckBox?roleId=${sysRole.id}",function(data){
+				$.fn.zTree.init($("#ztree"), setting, data.data).expandAll(true);
+			});
+		}
+		refreshTree();
 	</script> 
 </head>
 <body>
@@ -83,16 +114,24 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">是否允许登录:</label>
+			<label class="control-label">是否可用:</label>
 			<div class="controls">
 				<select name="useable">
 					<c:forEach items="${list }" var="ls">
 					<option value="${ls.value }" <c:if test="${ls.value eq sysRole.useable}">selected="selected"</c:if>>${ls.lable }</option>
 					</c:forEach>
 				</select>
-				<span class="help-inline"><font color="red">*</font> “是”代表此账号允许登录，“否”则表示此账号不允许登录</span>
+				<span class="help-inline"><font color="red">*</font> “是”是否可用，“否”不可用</span>
 			</div>
 		</div>
+		<div class="control-group">
+			<label class="control-label">角色资源:</label>
+			<div class="controls">
+				 <div id="ztree" class="ztree"></div>
+				 <input id="roleMenus" name="roleMenus" type="hidden">
+			</div>
+		</div>
+		
 		<div class="control-group">
 			<label class="control-label">备注:</label>
 			<div class="controls">

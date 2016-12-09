@@ -23,6 +23,7 @@ import com.sp.service.SysRoleService;
 import com.sp.utils.DateUtils;
 import com.sp.utils.Page;
 
+
 /**
  * 
  * @ClassName SysRoleController
@@ -122,6 +123,7 @@ public class SysRoleController {
 			role.setEnname(sysRole.getEnname());
 			role.setUseable(sysRole.getUseable());
 			role.setRemarks(sysRole.getRemarks());
+			role.setRoleMenus(sysRole.getRoleMenus());//设置角色资源信息
 			role.setUpdateBy(request.getSession().getAttribute("loginid").toString());
 			role.setUpdateDate(new Date());
 			sysRoleService.updateSysRole(role);
@@ -146,16 +148,13 @@ public class SysRoleController {
 		boolean success = false;
 		String id = request.getParameter("id");
 		if(!StringUtils.isEmpty(id)){
-			SysRole sysRole = sysRoleService.selectSysRoleByPrimaryKey(id);
-			if(sysRole!=null){
-				Map<String, Object> paramerMap = new HashMap<String,Object>();
-				paramerMap.put("id", sysRole.getId());
-				paramerMap.put("delFlag","1");
-				int count = sysRoleService.deleteSysRoleByPrimaryKey(paramerMap);
-				if(count>0){
-					message = "删除角色信息成功！";
-					success = true;
-				}
+			Map<String, Object> paramerMap = new HashMap<String,Object>();
+			paramerMap.put("id",id);
+			paramerMap.put("delFlag","1");
+			int count = sysRoleService.deleteSysRoleByPrimaryKey(paramerMap);
+			if(count>0){
+				message = "删除角色信息成功！";
+				success = true;
 			}
 		}
 		redirectAttributes.addFlashAttribute("message", message);

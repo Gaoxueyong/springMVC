@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sp.dao.SysRoleMenuDao" >
+  <resultMap id="BaseResultMap" type="com.sp.entity.SysRoleMenu" >
+    <id column="role_id" property="roleId" jdbcType="VARCHAR" />
+    <id column="menu_id" property="menuId" jdbcType="VARCHAR" />
+  </resultMap>
+  
+ 	<sql id="dynamicWhere">
+		<where>
+			<if test="roleId != null and roleId != ''">AND role_id = '${role_id}' </if>
+			<if test="menuId != null and menuId != ''">AND menu_id = '${menuId}' </if>
+		</where>
+   </sql>
+   
+  <insert id="insertSysRoleMenu" parameterType="com.sp.entity.SysRoleMenu" >
+    insert into sys_role_menu (role_id, menu_id)
+    values (#{roleId,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR})
+  </insert>
+  
+  <delete id="deleteSysRoleMenuByPrimaryKey" parameterType="java.util.Map" >
+    delete from sys_role_menu  where role_id = #{roleId}  and menu_id = #{menuId}
+  </delete>
+  
+  <delete id="deleteSysRoleMenuByRoleId" parameterType="java.lang.String" >
+    delete from sys_role_menu  where role_id = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="getSysRoleMenuListByRoleId"  parameterType="java.util.Map"  resultMap="BaseResultMap">
+   select role_id,menu_id from sys_role_menu   <include refid="dynamicWhere" />
+  </select>
+</mapper>

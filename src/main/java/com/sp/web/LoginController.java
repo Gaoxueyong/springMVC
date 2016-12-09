@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,7 +18,7 @@ import com.sp.service.SysUserService;
 
 @Controller
 public class LoginController {
- 
+	private static Logger logger =Logger.getLogger(SysUserController.class);
 	@Resource
 	private SysUserService sysUserService;
 	/**
@@ -58,11 +59,12 @@ public class LoginController {
 					session.setAttribute("loginip", request.getRemoteAddr());
 					user.setLoginDate(date);
 					user.setLoginIp(request.getLocalAddr());
-					sysUserService.updateSysUser(user);
+					sysUserService.updateSysUserStatus(user);
 					loginMessage = "登录成功！";
 					loginFlag = true;
 				}else{
 					loginMessage = "登录名或密码错误，登录失败！";
+					
 				}
 			}else{
 				loginMessage = "登录名或密码错误，登录失败！";
@@ -72,9 +74,11 @@ public class LoginController {
 			}
 		} catch (Exception e) {
 			loginMessage = "登录名或密码错误，登录失败！";
+			logger.info(loginMessage+e.getMessage());
 			e.printStackTrace();
 		}finally{
 			session.setAttribute("loginMessage", loginMessage);
+			logger.info(loginMessage);
 			return url;
 		}
 		

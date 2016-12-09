@@ -18,8 +18,13 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sp.entity.SysRole;
 import com.sp.entity.SysUser;
+import com.sp.entity.SysUserRole;
+import com.sp.service.SysRoleService;
+import com.sp.service.SysUserRoleService;
 import com.sp.service.SysUserService;
+import com.sp.utils.DateUtils;
 import com.sp.utils.Page;
 
 /**
@@ -38,6 +43,10 @@ public class SysUserController {
 	
 	@Resource
 	private SysUserService sysUserService;
+	@Resource
+	private SysRoleService sysRoleService;
+	@Resource
+	private SysUserRoleService sysUserRoleService;
 	
 	/**
 	 * 
@@ -54,6 +63,7 @@ public class SysUserController {
 		Map<String, Object> paramerMap = new HashMap<String,Object>();
 		paramerMap.put("currentNo", request.getParameter("currentNo"));
 		paramerMap.put("pageSize", request.getParameter("pageSize"));
+		paramerMap.put("delFlag","0");
 		paramerMap.put("name", request.getParameter("name"));
 		Page<SysUser> page = sysUserService.getSysUserListPage(new Page<SysUser>(), paramerMap);
 		model.addAttribute("page", page);
@@ -73,9 +83,20 @@ public class SysUserController {
 	@RequestMapping(value="sysUserForm")
 	public String sysUserForm(HttpServletRequest request,HttpServletResponse response,Model model){
 		String id = request.getParameter("id");
+		//获取角色列 用以选择
+		Map<String, Object> paramerMap = new HashMap<String,Object>();
+		paramerMap.put("delFlag","0");
+		List<SysRole> roleList = sysRoleService.getSysRoleList(paramerMap);
 		SysUser sysUser = new SysUser();
 		if(!"".equals(id) && id!=null){
-			sysUser = sysUserService.selectByPrimaryKey(Integer.parseInt(id));
+			sysUser = sysUserService.selectSysUserByPrimaryKey(id);
+			if(sysUser!=null){
+				//获取用户角色信息 用以修改时回显
+				paramerMap = new HashMap<String,Object>();
+				paramerMap.put("userId",sysUser.getId());
+				List<SysUserRole> userRoleList = sysUserRoleService.getSysUserRoleList(paramerMap); 
+				model.addAttribute("userRoleList", userRoleList);
+			}
 		}
 		Map<String, String> map = new HashMap<String,String>();
 		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
@@ -89,6 +110,7 @@ public class SysUserController {
 		model.addAttribute("sysUser", sysUser);
 		model.addAttribute("loginFlag", "1");//绑定默认值
 		model.addAttribute("list", list);
+		model.addAttribute("roleList", roleList);
 		return "sys/user/sysUserForm";
 	}
 	
@@ -105,19 +127,31 @@ public class SysUserController {
 	public String saveSysUser(HttpServletRequest request,HttpServletResponse response,SysUser sysUser,RedirectAttributes redirectAttributes) throws IOException{
 		String message = "";
 		//增加
-		if(sysUser.getId()==null){
+		if(sysUser.getId()==null || "".equals(sysUser.getId()) ){
 			message = "添加用户失败！";
+			sysUser.setId(DateUtils.format(new Date(), DateUtils.DATE_YYYYMMDDHHMISSSSS));
 			sysUser.setCreateBy(request.getSession().getAttribute("loginid").toString());
 			sysUser.setCreateDate(new Date());
 			sysUser.setDelFlag("0");
-			sysUserService.saveSysUser(sysUser);
+			sysUserService.insertSysUser(sysUser);
 			message = "添加用户成功！";
 		}else{
 		//修改
 			message = "更新用户失败！";
-			SysUser user = sysUserService.selectByPrimaryKey(sysUser.getId());
+			SysUser user = sysUserService.selectSysUserByPrimaryKey(sysUser.getId());
+			user.setOffice(sysUser.getOffice());
+			user.setOfficeId(sysUser.getOfficeId());
+			user.setNo(sysUser.getNo());
 			user.setName(sysUser.getName());
-			user.setUpdateBy(request.getAttribute("loginid").toString());
+			user.setLoginName(sysUser.getLoginName());
+			user.setPassword(sysUser.getPassword());
+			user.setEmail(sysUser.getEmail());
+			user.setPhone(sysUser.getPhone());
+			user.setMobile(sysUser.getMobile());
+			user.setLoginFlag(sysUser.getLoginFlag());
+			user.setRoleStr(sysUser.getRoleStr());
+			user.setRemarks(sysUser.getRemarks());
+			user.setUpdateBy(request.getSession().getAttribute("loginid").toString());
 			user.setUpdateDate(new Date());
 			sysUserService.updateSysUser(user);
 			message = "更新用户成功！";
@@ -141,12 +175,12 @@ public class SysUserController {
 		boolean success = false;
 		String id = request.getParameter("id");
 		if(!StringUtils.isEmpty(id)){
-			SysUser user = sysUserService.selectByPrimaryKey(Integer.parseInt(id));
-			if(user!=null){
-				sysUserService.delSysUser(Integer.parseInt(id));
-				message = "删除用户信息成功！";
-				success = true;
-			}
+			Map<String, Object> paramerMap = new HashMap<String,Object>();
+			paramerMap.put("id", id);
+			paramerMap.put("delFlag","1");
+			sysUserService.deleteSysUserByPrimaryKey(paramerMap);
+			message = "删除用户信息成功！";
+			success = true;
 		}
 		redirectAttributes.addFlashAttribute("message", message);
 		redirectAttributes.addFlashAttribute("success", success);

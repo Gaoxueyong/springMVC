@@ -1,6 +1,10 @@
 package com.sp.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
  * 
@@ -11,7 +15,7 @@ import java.util.Date;
  * @version 1.0.0
  */
 public class SysUser  {
-	private Integer id;
+	private String id;
 
     private String companyId; //归属公司
     
@@ -56,13 +60,17 @@ public class SysUser  {
     private String remarks;
 
     private String delFlag;//DEFAULT '0' COMMENT '删除标记',
+    
+    //虚拟字段
+    private String roleStr;//用户角色字符串 逗号分隔
+    
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id == null ? null : id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getCompanyId() {
@@ -242,5 +250,13 @@ public class SysUser  {
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
     }
+    
+	public String getRoleStr() {
+		return roleStr;
+	}
+
+	public void setRoleStr(String roleStr) {
+		this.roleStr = roleStr;
+	}
 	 
 }

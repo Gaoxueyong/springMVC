@@ -27,7 +27,18 @@
 	  <result column="name" property="name" jdbcType="VARCHAR" />
 	  <result column="parentName" property="parentName" jdbcType="VARCHAR" />
 	  <result column="delFlag" property="delFlag" jdbcType="VARCHAR" />
+	 <result column="sort" property="sort" jdbcType="DECIMAL" />
   </resultMap>
+  <resultMap id="listMapChecked" type="java.util.Map" >
+	  <result column="id" property="id" jdbcType="VARCHAR" />
+	  <result column="pId" property="pId" jdbcType="VARCHAR" />
+	  <result column="name" property="name" jdbcType="VARCHAR" />
+	  <result column="parentName" property="parentName" jdbcType="VARCHAR" />
+	  <result column="delFlag" property="delFlag" jdbcType="VARCHAR" />
+	  <result column="checked" property="checked" jdbcType="VARCHAR" />
+	  <result column="sort" property="sort" jdbcType="DECIMAL" />
+  </resultMap>
+  
   
   <sql id="Base_Column_List" >
     id, parent_id, parent_ids, name, sort, href, target, icon, is_show, permission, create_by, 
@@ -137,11 +148,22 @@
   
   <!-- 获取菜单组织数 -->
   <select id="getSysMenuTreeData"  parameterType="java.util.Map" resultMap="listMap">
-		select id, pId, pIds,name,delFlag,parentName  from (
-		SELECT S.id,S.parent_id as pId,S.parent_ids as pIds,S.name,Y.NAME AS parentName,S.del_flag as delFlag FROM 
+		select id, pId, pIds,name,delFlag,parentName,sort  from (
+		SELECT S.id,S.parent_id as pId,S.parent_ids as pIds,S.name,Y.NAME AS parentName,S.del_flag as delFlag,s.sort FROM 
 		sys_menu S LEFT JOIN sys_menu Y ON S.parent_id = Y.id
 		)sys_menu where 1=1
 		<if test="delFlag != null and delFlag != ''">AND delFlag = #{delFlag} </if>
-			<if test="parentId != null and parentId != ''">AND pId = #{parentId} </if>  
+		<if test="parentId != null and parentId != ''">AND pId = #{parentId} </if>  
+		order by sort 
   </select>
+  
+   <!-- 根据角色id获取改角色的角色树  那些选中了 那些没选中 -->
+   <select id="getSysMenuTreeDataChecked"  parameterType="java.util.Map" resultMap="listMapChecked">
+	SELECT S.id,S.parent_id as pId,S.parent_ids as pIds,S.name,Y.NAME AS parentName,S.del_flag as delFlag,
+	case IFNULL(srm.menu_id,1) when 1 then 'false' else 'true' END as checked,s.sort 
+ 	FROM  sys_menu S LEFT JOIN sys_menu Y ON S.parent_id = Y.id
+	LEFT join sys_role_menu srm on s.id = srm.menu_id  and srm.role_id=#{roleId} where 1=1 AND S.del_flag = #{delFlag} 
+	order by s.sort 
+   </select>
+  
 </mapper>

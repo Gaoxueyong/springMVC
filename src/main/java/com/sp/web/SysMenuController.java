@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sp.entity.SysMenu;
 import com.sp.service.SysMenuService;
+import com.sp.service.SysRoleMenuService;
 import com.sp.utils.DateUtils;
 import com.sp.utils.Page;
 
@@ -41,6 +42,8 @@ public class SysMenuController {
 	
 	@Resource
 	private SysMenuService sysMenuService;
+	@Resource
+	private SysRoleMenuService sysRoleMenuService;
 	
 	/**
 	 * 
@@ -117,6 +120,33 @@ public class SysMenuController {
 		Map<String, Object> paramerMap = new HashMap<String,Object>();
 		paramerMap.put("delFlag", "0");
 		List<Map<String, Object>> treeData = sysMenuService.getSysMenuTreeData(paramerMap);
+		JSONObject json = new JSONObject();
+		json.put("data", treeData);
+		response.getWriter().write(json.toString());
+	}
+	
+	
+	/**
+	 * 
+	 * @Description 加载菜单数据
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @author: Gaoxueyong
+	 * Create at: 2016年11月21日 上午11:17:55
+	 * @throws IOException 
+	 */
+	@RequestMapping(value="sysMenuTreeDataCheckBox")
+	public void sysMenuTreeDataCheckBox(HttpServletRequest request,HttpServletResponse response,Model model) throws IOException{
+		Map<String, Object> paramerMap = new HashMap<String,Object>();
+		paramerMap.put("delFlag", "0");
+		List<Map<String, Object>> treeData = null;
+		if("".equals(request.getParameter("roleId").toString()) || request.getParameter("roleId")==null){
+			treeData = sysMenuService.getSysMenuTreeData(paramerMap);
+		}else{
+			paramerMap.put("roleId",request.getParameter("roleId"));
+			treeData = sysMenuService.getSysMenuTreeDataChecked(paramerMap);
+		}
 		JSONObject json = new JSONObject();
 		json.put("data", treeData);
 		response.getWriter().write(json.toString());

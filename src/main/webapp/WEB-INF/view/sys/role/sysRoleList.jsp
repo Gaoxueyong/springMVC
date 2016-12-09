@@ -86,7 +86,7 @@
 					<fmt:formatDate value="${role.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td  style="text-align: center;">
-					<a href="${ctx}/sys/role/form?id=${role.id}">修改</a>
+					<a href="${ctx}/sys/role/sysRoleForm?id=${role.id}">修改</a>
 					<a href="${ctx}/sys/role/delSysRoleById?id=${role.id}" onclick="return confirmx('确认要删除该角色吗？删除后该角色下面的人员也会一并删除', this.href)">删除</a>
 				</td>
 			</tr>

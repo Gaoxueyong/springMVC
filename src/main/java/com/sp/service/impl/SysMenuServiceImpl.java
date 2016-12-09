@@ -153,6 +153,20 @@ public class SysMenuServiceImpl implements SysMenuService {
 		return sysMenuDao.getSysMenuTreeData(paramerMap);
 	}
 
+	 
+    /**
+     * 
+     * @Description 根据角色id获取改角色的角色树  那些选中了 那些没选中
+     * @param roleId
+     * @return
+     * @author: Gaoxueyong
+     * Create at: 2016年12月7日 下午5:46:11
+     */
+	@Override
+	public List<Map<String, Object>> getSysMenuTreeDataChecked(Map<String, Object> paramerMap) {
+		return sysMenuDao.getSysMenuTreeDataChecked(paramerMap);
+	}
+
 
 	
 }

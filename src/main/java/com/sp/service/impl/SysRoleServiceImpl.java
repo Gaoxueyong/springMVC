@@ -2,9 +2,17 @@ package com.sp.service.impl;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.sp.dao.SysRoleDao;
+import com.sp.dao.SysRoleMenuDao;
 import com.sp.entity.SysRole;
+import com.sp.entity.SysRoleMenu;
 import com.sp.service.SysRoleService;
 import com.sp.utils.Page;
 /**
@@ -19,6 +27,8 @@ import com.sp.utils.Page;
 public class SysRoleServiceImpl implements SysRoleService {
 
 	@Resource
+	private SysRoleMenuDao sysRoleMenuDao;
+	@Resource
 	private SysRoleDao sysRoleDao;
 	
 	/**
@@ -31,6 +41,13 @@ public class SysRoleServiceImpl implements SysRoleService {
 	 */
 	@Override
 	public int insertSysRole(SysRole sysRole) {
+		String[] roleMenus = sysRole.getRoleMenus().split(",");
+		SysRoleMenu sysRoleMenu = new SysRoleMenu();
+		sysRoleMenu.setRoleId(sysRole.getId());
+		for(String menuId:roleMenus){
+			sysRoleMenu.setMenuId(menuId);
+			sysRoleMenuDao.insertSysRoleMenu(sysRoleMenu);
+		}
 		return sysRoleDao.insertSysRole(sysRole);
 	}
 
@@ -44,6 +61,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 	 */
 	@Override
 	public int deleteSysRoleByPrimaryKeyReal(String id) {
+		//删除老的角色资源
+		sysRoleMenuDao.deleteSysRoleMenuByRoleId(id);
 		return sysRoleDao.deleteSysRoleByPrimaryKeyReal(id);
 	}
 
@@ -57,6 +76,8 @@ public class SysRoleServiceImpl implements SysRoleService {
      */
 	@Override
 	public int deleteSysRoleByPrimaryKey(Map<String, Object> paramerMap) {
+		//删除老的角色资源
+		sysRoleMenuDao.deleteSysRoleMenuByRoleId(paramerMap.get("id").toString());
 		return sysRoleDao.deleteSysRoleByPrimaryKey(paramerMap);
 	}
 
@@ -70,6 +91,15 @@ public class SysRoleServiceImpl implements SysRoleService {
      */
 	@Override
 	public int updateSysRole(SysRole sysRole) {
+		//删除老的角色资源
+		sysRoleMenuDao.deleteSysRoleMenuByRoleId(sysRole.getId());
+		String[] roleMenus = sysRole.getRoleMenus().split(",");
+		SysRoleMenu sysRoleMenu = new SysRoleMenu();
+		sysRoleMenu.setRoleId(sysRole.getId());
+		for(String menuId:roleMenus){
+			sysRoleMenu.setMenuId(menuId);
+			sysRoleMenuDao.insertSysRoleMenu(sysRoleMenu);
+		}
 		return sysRoleDao.updateSysRole(sysRole);
 	}
 
@@ -138,4 +168,20 @@ public class SysRoleServiceImpl implements SysRoleService {
 		return sysRoleDao.getSysRoleListTotalNum(paramerMap);
 	}
 
+	/**
+	 * 
+	 * @Description 区域数选择
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @author: Gaoxueyong
+	 * Create at: 2016年11月21日 上午11:16:59
+	 */
+	@RequestMapping(value="sysMenuTree")
+	public String sysMenuTree(HttpServletRequest request,HttpServletResponse response,Model model){
+		
+		
+		 return "sys/role/sysMenuTree";
+	}
 }

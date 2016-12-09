@@ -38,6 +38,9 @@ public class SysRole {
     private String remarks;//备注信息
 
     private String delFlag;//删除标记 默认为0 未删除  1已删除
+    
+    //虚拟字段 用以存储角色菜单信息
+    private String roleMenus;
 
     public String getId() {
         return id;
@@ -150,4 +153,13 @@ public class SysRole {
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag == null ? null : delFlag.trim();
     }
+
+	public String getRoleMenus() {
+		return roleMenus;
+	}
+
+	public void setRoleMenus(String roleMenus) {
+		this.roleMenus = roleMenus;
+	}
+    
 }

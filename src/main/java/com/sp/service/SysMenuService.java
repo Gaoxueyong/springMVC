@@ -114,5 +114,15 @@ public interface SysMenuService {
      * Create at: 2016年12月7日 下午5:46:11
      */
     List<Map<String, Object>> getSysMenuTreeDataChecked(Map<String, Object> paramerMap);
-
+    
+    /**
+     * 
+     * @Description 构造树结构列表
+     * @param menuRoot
+     * @param menuList
+     * @return
+     * @author: Gaoxueyong
+     * Create at: 2016年12月9日 下午3:35:18
+     */
+    List<SysMenu> getTreeList(List<SysMenu> menuRoot,List<SysMenu>menuList,List<SysMenu> resultList);
 }

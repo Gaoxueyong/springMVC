@@ -66,6 +66,19 @@ public class SysMenuController {
 		Page<SysMenu> page = sysMenuService.getSysMenuListPage(new Page<SysMenu>(), paramerMap);
 		model.addAttribute("page", page);
 		model.addAttribute("sysMenu", sysMenu);
+		//构造树结构
+		paramerMap = new HashMap<String,Object>();
+		paramerMap.put("delFlag","0");
+		paramerMap.put("orderField","sort");
+		paramerMap.put("orderSeq","asc");
+		SysMenu menuRoot = sysMenuService.selectSysMenuByPrimaryKey("1");
+		List<SysMenu> menuRootList = new ArrayList<SysMenu>();
+		menuRootList.add(menuRoot);
+		List<SysMenu> resultList = new ArrayList<SysMenu>();
+		resultList.add(menuRoot);
+		List<SysMenu> menuList = sysMenuService.getSysMenuList(paramerMap);
+		List<SysMenu> treeList = sysMenuService.getTreeList(menuRootList, menuList, resultList);
+		page.setList(treeList);
 		return "sys/menu/sysMenuList";
 	}
 	

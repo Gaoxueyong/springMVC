@@ -1,11 +1,12 @@
 package com.sp.service.impl;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.sp.dao.SysMenuDao;
 import com.sp.entity.SysMenu;
-import com.sp.entity.SysRole;
 import com.sp.service.SysMenuService;
 import com.sp.utils.Page;
 /**
@@ -117,7 +118,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 		if(paramerMap.get("pageSize")!=null){
 			page.setPageSize(Integer.parseInt(paramerMap.get("pageSize").toString()));
 		}
-		 
+		page.setPageSize(100);
 		paramerMap.put("startSize",page.getStartSize());
 		paramerMap.put("pageSize",page.getPageSize());
 		page.setList(sysMenuDao.getSysMenuListPage(paramerMap));
@@ -166,7 +167,54 @@ public class SysMenuServiceImpl implements SysMenuService {
 	public List<Map<String, Object>> getSysMenuTreeDataChecked(Map<String, Object> paramerMap) {
 		return sysMenuDao.getSysMenuTreeDataChecked(paramerMap);
 	}
-
-
+	
+	/**
+     * 
+     * @Description 构造树结构列表
+     * @param menuRoot
+     * @param menuList
+     * @return
+     * @author: Gaoxueyong
+     * Create at: 2016年12月9日 下午3:35:18
+     */
+	@Override
+	public List<SysMenu> getTreeList(List<SysMenu> menuRoot, List<SysMenu> menuList,List<SysMenu> resultList){
+		resultList = getMenuRootList(menuRoot, menuList,null);
+		return resultList;
+	}
+	
+	
+	/**
+	 * 
+	 * @Description 获取根节点
+	 * @param rootList
+	 * @param menuList
+	 * @return
+	 * @author: Gaoxueyong
+	 * Create at: 2016年12月12日 上午11:47:51
+	 */
+	public List<SysMenu> getMenuRootList(List<SysMenu> rootList,List<SysMenu> menuList,Map<String, Object> containMap){
+		List<SysMenu> returnList = new ArrayList<SysMenu>();
+		if(containMap==null){containMap=new HashMap<String,Object>();}
+		for(SysMenu root:rootList){
+			//if(!containMap.containsKey(root.getId())){
+				returnList.add(root);
+				containMap.put(root.getId(), root.getId());
+				for(SysMenu child:menuList){
+					if(!containMap.containsKey(child.getId())){
+						if(root.getId().equals(child.getParentId())){
+							returnList.add(child);
+							containMap.put(child.getId(), child.getId());
+						}
+					}
+				}
+			//}
+		}
+		
+		if(returnList!=null && returnList.size()==menuList.size()){
+			return returnList;
+		} 
+		return getMenuRootList(returnList, menuList,containMap);
+	}
 	
 }

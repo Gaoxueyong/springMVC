@@ -104,7 +104,7 @@
 	<form:form id="inputForm" modelAttribute="sysMenu" action="${ctx}/sys/menu/saveSysMenu" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>
-		<c:if test="${not empty sysMenu.parentName }">
+		<%-- <c:if test="${not empty sysMenu.parentName }"> --%>
 		 <div class="control-group">
 			<label class="control-label">上级菜单:</label>
 			<div class="controls">
@@ -116,7 +116,7 @@
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
-		</c:if>
+		<%-- </c:if> --%>
 		<div class="control-group">
 			<label class="control-label">菜单名称:</label>
 			<div class="controls">

@@ -33,7 +33,7 @@
 	$(function(){
         var option = {
             theme:'vsStyle',
-            expandLevel : 2,
+            expandLevel : 5,//展开树的级别
             beforeExpand : function($treeTable, id) {
                 //判断id是否已经有了孩子节点，如果有了就不再加载，这样就可以起到缓存的作用
                 if ($('.' + id, $treeTable).length) { return; }
@@ -58,10 +58,10 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/sys/menu/list?parentId=${sysMenu.parentId}">菜单列表</a></li>
+		<li class="active"><a href="${ctx}/sys/menu/list">菜单列表</a></li>
 		<li><a href="${ctx}/sys/menu/sysMenuForm?parentId=${sysMenu.parentId}">菜单添加</a></li>
 	</ul>
-	<form:form id="searchForm" modelAttribute="sysMenu" action="${ctx}/sys/menu/list?parentId=${sysMenu.parentId}" method="post" class="breadcrumb form-search">
+	<form:form id="searchForm" modelAttribute="sysMenu" action="${ctx}/sys/menu/list" method="post" class="breadcrumb form-search">
 		<input id="currentNo" name="currentNo" type="hidden" value="${page.currentNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
@@ -76,35 +76,35 @@
 	<table id="treeTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>菜单名称</th>
-				<th>上级名称</th>
-				<th>权限标识</th>
-				<th>连接</th>
-				<th>图标</th>
-				<th>显示</th>
-				<th>排序</th>
-				<th>备注</th>
-				<th>操作</th>
+				<th style="text-align: center;">菜单名称</th>
+				<th style="text-align: center;">上级名称</th>
+				<th style="text-align: center;">权限标识</th>
+				<th style="text-align: center;">连接</th>
+				<th style="text-align: center;">图标</th>
+				<th style="text-align: center;">显示</th>
+				<th style="text-align: center;">排序</th>
+				<!-- <th>备注</th> -->
+				<th style="text-align: center;">操作</th>
 			</tr>
 		</thead>
 		<tbody id="treeTableList">
-		 <c:forEach items="${page.list}" var="menu">
+		 <c:forEach items="${treeList}" var="menu">
 			<tr id="${menu.id }" pId="${menu.parentId }" >
-				<td>${menu.name}</td>
-				<td>${menu.parentName }</td>
-				<td>${menu.permission }</td>
-				<td>${menu.href }</td>
-				<td><i id="iconShow" class="${menu.icon}"></i></td>
-				<td>
+				<td style="text-align: center;">${menu.name}</td>
+				<td style="text-align: center;">${menu.parentName }</td>
+				<td style="text-align: center;">${menu.permission }</td>
+				<td style="text-align: left;">${menu.href }</td>
+				<td style="text-align: center;"><i id="iconShow" class="${menu.icon}"></i></td>
+				<td style="text-align: center;">
 					<c:choose>
 						<c:when test="${menu.isShow eq '1'}"><font color="green;">是</font></c:when>
 						<c:when test="${menu.isShow eq '0'}"><font color="red">否</font></c:when>
 						<c:otherwise></c:otherwise>
 					</c:choose>
 				</td>
-				<td>${menu.sort }</td>
-				<td>${menu.remarks }</td>
-				<td>
+				<td style="text-align: center;">${menu.sort }</td>
+				<%-- <td>${menu.remarks }</td> --%>
+				<td style="text-align: center;">
 					<a href="${ctx}/sys/menu/sysMenuForm?id=${menu.id}">修改</a>
 					<c:if test="${not empty menu.parentName }">
 					<a href="${ctx}/sys/menu/delSysMenuById?id=${menu.id}" onclick="return confirmx('确认要删除该区域吗？删除后连同其下属的区域也会一并删除！', this.href)">删除</a>

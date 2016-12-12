@@ -58,16 +58,11 @@ public class SysMenuController {
 	public String list(HttpServletRequest request,HttpServletResponse response,Model model,SysMenu sysMenu){
 	
 		Map<String, Object> paramerMap = new HashMap<String,Object>();
-		paramerMap.put("currentNo", request.getParameter("currentNo"));
-		paramerMap.put("pageSize", request.getParameter("pageSize"));
-		paramerMap.put("delFlag","0");
-		paramerMap.put("name", request.getParameter("name"));
-		paramerMap.put("childrens", sysMenu.getParentId());
-		Page<SysMenu> page = sysMenuService.getSysMenuListPage(new Page<SysMenu>(), paramerMap);
-		model.addAttribute("page", page);
 		model.addAttribute("sysMenu", sysMenu);
 		//构造树结构
 		paramerMap = new HashMap<String,Object>();
+		paramerMap.put("name", request.getParameter("name"));
+		/*paramerMap.put("childrens", sysMenu.getParentId());*/
 		paramerMap.put("delFlag","0");
 		paramerMap.put("orderField","sort");
 		paramerMap.put("orderSeq","asc");
@@ -78,7 +73,7 @@ public class SysMenuController {
 		resultList.add(menuRoot);
 		List<SysMenu> menuList = sysMenuService.getSysMenuList(paramerMap);
 		List<SysMenu> treeList = sysMenuService.getTreeList(menuRootList, menuList, resultList);
-		page.setList(treeList);
+		model.addAttribute("treeList", treeList);
 		return "sys/menu/sysMenuList";
 	}
 	

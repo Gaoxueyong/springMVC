@@ -39,20 +39,13 @@
                 if ($('.' + id, $treeTable).length) { return; }
                 //这里的html可以是ajax请求
                  
-
                 $treeTable.addChilds(html);
             },
             onSelect : function($treeTable, id) {
                 window.console && console.log('onSelect:' + id);
-                
             }
-
         };
         $('#treeTable').treeTable(option);
-      /*   $('#treeTable1').treeTable(option);
-
-        option.theme = 'default';
-        $('#treeTable2').treeTable(option); */
     });
 	</script>
 </head>
@@ -90,7 +83,7 @@
 		<tbody id="treeTableList">
 		 <c:forEach items="${treeList}" var="menu">
 			<tr id="${menu.id }" pId="${menu.parentId }" >
-				<td style="text-align: center;">${menu.name}</td>
+				<td style="text-align: left;">${menu.name}</td>
 				<td style="text-align: center;">${menu.parentName }</td>
 				<td style="text-align: center;">${menu.permission }</td>
 				<td style="text-align: left;">${menu.href }</td>

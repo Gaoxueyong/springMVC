@@ -48,7 +48,8 @@
   <!-- 查询条件 -->
   <sql id="dynamicWhere">
 		<where>
-			<if test="name != null and name != ''">AND name like  '%${name}%' </if>
+			<if test="id != null and id != ''">AND id =#{id} </if>
+			<if test="name != null and name != ''">AND name =#{name} </if>
 			<if test="delFlag != null and delFlag != ''">AND del_flag = #{delFlag} </if>
 			<if test="isShow != null and isShow != ''">AND is_show = #{isShow} </if>
 			<if test="parentId != null and parentId != ''">AND (parent_id = #{parentId} or id= #{parentId}) </if>

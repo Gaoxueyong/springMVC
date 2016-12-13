@@ -1,5 +1,7 @@
 package com.sp.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +10,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.sp.dao.SysOfficeDao;
+import com.sp.entity.SysMenu;
 import com.sp.entity.SysOffice;
 import com.sp.service.SysOfficeService;
 import com.sp.utils.Page;
@@ -101,5 +104,56 @@ public class SysOfficeServiceImpl implements SysOfficeService{
 		return sysOfficeDao.deleteSysOfficeAndChildrenById(paramerMap);
 	}
 
+	 /**
+     * 
+     * @Description 获取树形结构列表
+     * @param menuRootList
+     * @param officeList
+     * @param resultList
+     * @return
+     * @author: Gaoxueyong
+     * Create at: 2016年12月13日 上午10:00:41
+     */
+	@Override
+	public List<SysOffice> getTreeList(List<SysOffice> menuRootList, List<SysOffice> officeList,
+			List<SysOffice> resultList) {
+		return getOfficeList(menuRootList, officeList, null);
+	}
+	
+	/**
+	 * 
+	 * @Description 获取根及其子节点
+	 * @param rootList
+	 * @param menuList
+	 * @return
+	 * @author: Gaoxueyong
+	 * Create at: 2016年12月12日 上午11:47:51
+	 */
+	public List<SysOffice> getOfficeList(List<SysOffice> menuRootList,List<SysOffice> officeList,Map<String, Object> containMap){
+		List<SysOffice> returnList = new ArrayList<SysOffice>();
+		if(officeList==null || officeList.size()==0){
+			return returnList;
+		}
+		if(containMap==null){containMap=new HashMap<String,Object>();}
+		for(SysOffice root:menuRootList){
+			//if(!containMap.containsKey(root.getId())){
+				returnList.add(root);
+				containMap.put(root.getId(), root.getId());
+				for(SysOffice child:officeList){
+					if(!containMap.containsKey(child.getId())){
+						if(root.getId().equals(child.getParentId())){
+							returnList.add(child);
+							containMap.put(child.getId(), child.getId());
+						}
+					}
+				}
+			//}
+		}
+		
+		if(returnList!=null && returnList.size()==officeList.size()){
+			return returnList;
+		} 
+		return getOfficeList(returnList, officeList,containMap);
+	}
 
 }

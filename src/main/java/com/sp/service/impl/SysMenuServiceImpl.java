@@ -195,6 +195,9 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 */
 	public List<SysMenu> getMenuRootList(List<SysMenu> rootList,List<SysMenu> menuList,Map<String, Object> containMap){
 		List<SysMenu> returnList = new ArrayList<SysMenu>();
+		if(menuList==null || menuList.size()==0){
+			return returnList;
+		}
 		if(containMap==null){containMap=new HashMap<String,Object>();}
 		for(SysMenu root:rootList){
 			//if(!containMap.containsKey(root.getId())){

@@ -53,17 +53,21 @@ public class SysOfficeController {
 	public String list(HttpServletRequest request,HttpServletResponse response,Model model,SysOffice sysOffice){
 	
 		Map<String, Object> paramerMap = new HashMap<String,Object>();
-		paramerMap.put("currentNo", request.getParameter("currentNo"));
-		paramerMap.put("pageSize", request.getParameter("pageSize"));
 		paramerMap.put("name", request.getParameter("name"));
-		paramerMap.put("childrens", sysOffice.getParentId());
+		//paramerMap.put("childrens", sysOffice.getParentId());
 		paramerMap.put("delFlag","0");
-		Page<SysOffice> page = sysOfficeService.getSysOfficListPage(new Page<SysOffice>(), paramerMap);
-		//List<SysOffice> list = sysOfficeService.getSysOfficeList(paramerMap);
-		model.addAttribute("page", page);
+		paramerMap.put("orderField","sort");
+		paramerMap.put("orderSeq","asc");
+		List<SysOffice> officeList = sysOfficeService.getSysOfficeList(paramerMap);
+		
+		//根节点
+		paramerMap = new HashMap<String,Object>();
+		paramerMap.put("id","1");
+		List<SysOffice> menuRootList = sysOfficeService.getSysOfficeList(paramerMap);
+		List<SysOffice> treeList = sysOfficeService.getTreeList(menuRootList, officeList, null);
+		//model.addAttribute("page", page);
+		model.addAttribute("treeList", treeList);
 		model.addAttribute("sysOffice", sysOffice);
-		//model.addAttribute("list",JSONObject.fromObject(list));
-		//model.addAttribute("list",list);
 		return "sys/office/sysOfficeList";
 	}
 	

@@ -71,5 +71,15 @@ public interface SysAreaService {
      * Create at: 2016年11月30日 上午10:49:46
      */
     int delChildrenById(Map<String, Object> paramerMap);
-
+    /**
+     * 
+     * @Description 获取树形结构列表
+     * @param areaRootList
+     * @param areaList
+     * @param resultList
+     * @return
+     * @author: Gaoxueyong
+     * Create at: 2016年12月13日 上午10:00:41
+     */
+	public List<SysArea> getTreeList(List<SysArea> areaRootList, List<SysArea> areaList, List<SysArea> resultList);
 }

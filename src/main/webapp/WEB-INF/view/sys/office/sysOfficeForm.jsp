@@ -100,25 +100,23 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/sys/office/list?parentId=${sysOffice.parentId}">机构列表</a></li>
-		<li class="active"><a href="${ctx}/sys/office/sysOfficeForm?parentId=${sysOffice.parentId}">机构${not empty sysOffice.id?'修改':'添加'}</a></li>
+		<li><a href="${ctx}/sys/office/list">机构列表</a></li>
+		<li class="active"><a href="${ctx}/sys/office/sysOfficeForm">机构${not empty sysOffice.id?'修改':'添加'}</a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="sysOffice" action="${ctx}/sys/office/saveSysOffice" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>
-		<c:if test="${not empty sysOffice.parentName }">
 		<div class="control-group">
 			<label class="control-label">上级机构:</label>
 			<div class="controls">
-               <%--  <sys:treeselect id="office" name="parent.id" value="${sysOffice.parent.id}" labelName="parent.name" labelValue="${sysOffice.parent.name}"
-					title="机构" url="/sys/office/treeData" extId="${sysOffice.id}" cssClass="" allowClear="${sysOffice.currentUser.admin}"/> --%>
+				<div class="input-append">
 					<input id="parentId" name="parentId" class="" type="hidden" value="${sysOffice.parentId }">
 					<input id="parentIds" name="parentIds" class="" type="hidden" value="${sysOffice.parentIds}" >
 					<input id="parentName" name="parentName" readonly="readonly"   type="text" value="${sysOffice.parentName}" data-msg-required="" class="required" style=""><a id="areaButton" href="javascript:" onclick="showOffice();" class="btn  " style="">&nbsp;<i class="icon-search"></i>&nbsp;</a>&nbsp;&nbsp;
 				</div>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
-		</c:if>
+		</div>
 		 <div class="control-group">
 			<label class="control-label">归属区域:</label>
 			<div class="controls">

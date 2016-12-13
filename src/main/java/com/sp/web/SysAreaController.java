@@ -51,21 +51,23 @@ public class SysAreaController {
 	 */
 	@RequestMapping(value="list")
 	public String list(HttpServletRequest request,HttpServletResponse response,Model model,SysArea sysArea){
-	
+		
+		//获取树的所有节点
 		Map<String, Object> paramerMap = new HashMap<String,Object>();
-		paramerMap.put("currentNo", request.getParameter("currentNo"));
-		paramerMap.put("pageSize", request.getParameter("pageSize"));
 		paramerMap.put("name", request.getParameter("name"));
-		paramerMap.put("childrens",sysArea.getParentId());
 		paramerMap.put("orderField", "sort");
 		paramerMap.put("orderSeq", "asc");
 		paramerMap.put("delFlag", "0");
-		Page<SysArea> page = sysAreaService.getSysAreaListPage(new Page<SysArea>(), paramerMap);
-		//List<SysArea> list = SysAreaService.getSysAreaList(paramerMap);
-		model.addAttribute("page", page);
+		List<SysArea> areaList = sysAreaService.getSysAreaList(paramerMap);
+		
+		//获取根节点
+		paramerMap = new HashMap<String,Object>();
+		paramerMap.put("id", "1");
+		List<SysArea> areaRootList = sysAreaService.getSysAreaList(paramerMap); 
+		//获取树列表
+		List<SysArea> treeList = sysAreaService.getTreeList(areaRootList, areaList, null);
+		model.addAttribute("treeList", treeList);
 		model.addAttribute("sysArea", sysArea);
-		//model.addAttribute("list",JSONObject.fromObject(list));
-		//model.addAttribute("list",list);
 		return "sys/area/sysAreaList";
 	}
 	

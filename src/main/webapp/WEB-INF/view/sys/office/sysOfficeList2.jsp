@@ -26,37 +26,18 @@
 	<script type="text/javascript" src="${ctx }/static/static/common/jeesite.js" ></script>
 	<link href="${ctx}/static/static/treeTable/themes/vsStyle/treeTable.min.css" rel="stylesheet" type="text/css" />
 	<script src="${ctx}/static/static/treeTable/jquery.treeTable.min.js" type="text/javascript"></script>
-	<!-- jquery treeTable -->
-	<script type="text/javascript" src="${ctx }/static/treeTable/treeTable v1.4.2/script/treeTable/jquery.treeTable.js" ></script>
-	<link href="${ctx }/static/treeTable/treeTable v1.4.2/script/treeTable/default/jquery.treeTable.css" rel="stylesheet" type="text/css" />
-	<link href="${ctx }/static/treeTable/treeTable v1.4.2/script/treeTable/vsStyle/jquery.treeTable.css" rel="stylesheet" type="text/css" />
-	<!-- jquery treeTable -->
 	<script type="text/javascript">
-	$(function(){
-        var option = {
-            theme:'vsStyle',
-            expandLevel : 5,//展开树的级别
-            beforeExpand : function($treeTable, id) {
-                //判断id是否已经有了孩子节点，如果有了就不再加载，这样就可以起到缓存的作用
-                if ($('.' + id, $treeTable).length) { return; }
-                //这里的html可以是ajax请求
-                 
-                $treeTable.addChilds(html);
-            },
-            onSelect : function($treeTable, id) {
-                window.console && console.log('onSelect:' + id);
-            }
-        };
-        $('#treeTable').treeTable(option);
-    });
+	
 	</script>
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/sys/office/list">机构列表</a></li>
-		<li><a href="${ctx}/sys/office/sysOfficeForm">机构添加</a></li>
+		<li class="active"><a href="${ctx}/sys/office/list?parentId=${sysOffice.parentId}">机构列表</a></li>
+		<li><a href="${ctx}/sys/office/sysOfficeForm?parentId=${sysOffice.parentId}">机构添加</a></li>
 	</ul>
-	<form:form id="searchForm" modelAttribute="sysOffice" action="${ctx}/sys/office/list" method="post" class="breadcrumb form-search">
+	<form:form id="searchForm" modelAttribute="sysOffice" action="${ctx}/sys/office/list?parentId=${sysOffice.parentId}" method="post" class="breadcrumb form-search">
+		<input id="currentNo" name="currentNo" type="hidden" value="${page.currentNo}"/>
+		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
 			<li><label>名称：</label>
 				<form:input path="name" htmlEscape="false" maxlength="200" />
@@ -66,7 +47,7 @@
 		</ul>
 	</form:form>
 	<sys:message content="${message}"/>
-	<table id="treeTable" class="table table-striped table-bordered table-condensed">
+	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
 				<th style="text-align: center;width: 20%;">机构名称</th>
@@ -76,9 +57,9 @@
 			</tr>
 		</thead>
 		<tbody>
-		<c:forEach items="${treeList}" var="office">
-			<tr id="${office.id }" pId="${office.parentId }">
-				<td  style="text-align: left;">${office.name}</td>
+		<c:forEach items="${page.list}" var="office">
+			<tr>
+				<td  style="text-align: center;">${office.name}</td>
 				<td  style="text-align: center;">${office.parentName}</td>
 				<td  style="text-align: left;">${office.remarks }</td>
 				<td  style="text-align: center;">
@@ -91,5 +72,6 @@
 		</c:forEach>
 		</tbody>
 	</table>
+	<div class="pagination">${page.pageInfo}</div>
 </body>
 </html>

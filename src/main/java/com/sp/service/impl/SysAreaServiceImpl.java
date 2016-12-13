@@ -1,5 +1,7 @@
 package com.sp.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.sp.dao.SysAreaDao;
 import com.sp.entity.SysArea;
+import com.sp.entity.SysOffice;
 import com.sp.service.SysAreaService;
 import com.sp.utils.Page;
 /**
@@ -90,6 +93,57 @@ public class SysAreaServiceImpl implements SysAreaService {
 	@Override
 	public int delChildrenById(Map<String, Object> paramerMap) {
 		return sysAreaDao.delChildrenById(paramerMap);
+	}
+	
+	 /**
+     * 
+     * @Description 获取树形结构列表
+     * @param areaRootList
+     * @param areaList
+     * @param resultList
+     * @return
+     * @author: Gaoxueyong
+     * Create at: 2016年12月13日 上午10:00:41
+     */
+	@Override
+	public List<SysArea> getTreeList(List<SysArea> areaRootList, List<SysArea> areaList, List<SysArea> resultList) {
+		return getAreaTreeList(areaRootList, areaList, null);
+	}
+	
+	/**
+	 * 
+	 * @Description 获取根及其子节点
+	 * @param rootList
+	 * @param menuList
+	 * @return
+	 * @author: Gaoxueyong
+	 * Create at: 2016年12月12日 上午11:47:51
+	 */
+	public List<SysArea> getAreaTreeList(List<SysArea> areaRootList,List<SysArea> areaList,Map<String, Object> containMap){
+		List<SysArea> returnList = new ArrayList<SysArea>();
+		if(areaList==null || areaList.size()==0){
+			return returnList;
+		}
+		if(containMap==null){containMap=new HashMap<String,Object>();}
+		for(SysArea root:areaRootList){
+			//if(!containMap.containsKey(root.getId())){
+				returnList.add(root);
+				containMap.put(root.getId(), root.getId());
+				for(SysArea child:areaList){
+					if(!containMap.containsKey(child.getId())){
+						if(root.getId().equals(child.getParentId())){
+							returnList.add(child);
+							containMap.put(child.getId(), child.getId());
+						}
+					}
+				}
+			//}
+		}
+		
+		if(returnList!=null && returnList.size()==areaList.size()){
+			return returnList;
+		} 
+		return getAreaTreeList(returnList, areaList,containMap);
 	}
 
 }

@@ -103,4 +103,16 @@ public interface SysOfficeService {
      * Create at: 2016年11月30日 下午3:49:18
      */
     int deleteSysOfficeAndChildrenById(Map<String, Object> paramerMap);
+    
+    /**
+     * 
+     * @Description 获取树形结构列表
+     * @param menuRootList
+     * @param officeList
+     * @param resultList
+     * @return
+     * @author: Gaoxueyong
+     * Create at: 2016年12月13日 上午10:00:41
+     */
+    List<SysOffice> getTreeList(List<SysOffice> menuRootList,List<SysOffice>officeList,List<SysOffice> resultList);
 }

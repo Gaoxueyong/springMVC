@@ -9,8 +9,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.sp.dao.SysAreaDao;
 import com.sp.dao.SysOfficeDao;
-import com.sp.entity.SysMenu;
 import com.sp.entity.SysOffice;
 import com.sp.service.SysOfficeService;
 import com.sp.utils.Page;
@@ -26,6 +26,8 @@ import com.sp.utils.Page;
 @Service
 public class SysOfficeServiceImpl implements SysOfficeService{
 
+	@Resource
+	SysAreaDao sysAreaDao;
 	@Resource
 	SysOfficeDao sysOfficeDao;
 	
@@ -43,8 +45,8 @@ public class SysOfficeServiceImpl implements SysOfficeService{
 	}
 
 	@Override
-	public int insertSysOffice(SysOffice sysOffice) {
-		return sysOfficeDao.insertSysOffice(sysOffice);
+	public int insertSysOffice(SysOffice sysOffice){
+		 return sysOfficeDao.insertSysOffice(sysOffice);
 	}
 
 	@Override

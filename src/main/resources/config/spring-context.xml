@@ -3,17 +3,29 @@
  xmlns:context="http://www.springframework.org/schema/context"  
  xmlns:p="http://www.springframework.org/schema/p"  
  xmlns:mvc="http://www.springframework.org/schema/mvc"  
+ xmlns:aop="http://www.springframework.org/schema/aop"  
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+ xmlns:tx="http://www.springframework.org/schema/tx"
  xsi:schemaLocation="http://www.springframework.org/schema/beans  
       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd  
       http://www.springframework.org/schema/context  
       http://www.springframework.org/schema/context/spring-context.xsd  
       http://www.springframework.org/schema/mvc  
-      http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">  
+      http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+      http://www.springframework.org/schema/aop  
+      http://www.springframework.org/schema/aop/spring-aop.xsd  
+      http://www.springframework.org/schema/tx  
+      http://www.springframework.org/schema/tx/spring-tx.xsd">  
+      
 	 <!-- 引入配置文件 -->
 	 <bean id="propertyConfigurer"  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	 	<property name="location" value="classpath:config/jdbc.properties"></property>
 	 </bean>
+	 
+	 <!-- 自动扫描组件,这里不扫描 controller,它们是在ApplicationContext-mvc.xml中配置扫描的,如果不去除会影响事务管理   -->  
+	<context:component-scan base-package="com.sp">  
+	  <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>  
+	</context:component-scan>  
 	 
 	 <!-- dataSource 配置 -->  
 	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -33,6 +45,7 @@
 	 	<property name="maxWait" value="${maxWait}"></property>
 	 </bean>
 	 
+	 
 	 <!-- spring 和MyBatis 完美结合 ，不需要mybatis的配置映射文件 -->
 	 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	 	<property name="dataSource" ref="dataSource"></property>
@@ -50,5 +63,34 @@
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
+	
+	
+	<!-- 事务管理 通知 -->  
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">  
+        <tx:attributes>  
+            <!-- 对insert,update,delete 开头的方法进行事务管理,只要有异常就回滚 -->  
+            <tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>  
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>  
+            <tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>  
+            <!-- select,count开头的方法,开启只读,提高数据库访问性能 -->  
+            <tx:method name="select*" read-only="true"/>  
+            <tx:method name="count*" read-only="true"/>  
+            <tx:method name="get*" read-only="true"/>  
+            <!-- 对其他方法 使用默认的事务管理 -->  
+            <tx:method name="*"/>  
+        </tx:attributes>  
+    </tx:advice>  
+  
+    <!-- 事务 aop 配置  -->  
+    <aop:config>  
+        <aop:pointcut id="serviceMethods" expression="execution(* com.sp.service.impl.*.*(..))"/>  
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>  
+    </aop:config>  
+  
+    <!-- 配置使Spring采用CGLIB代理 -->  
+    <aop:aspectj-autoproxy proxy-target-class="true"/>  
+  
+    <!-- 启用对事务注解的支持 -->  
+    <tx:annotation-driven transaction-manager="transactionManager"/>  
 	
 </beans>  

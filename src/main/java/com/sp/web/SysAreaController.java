@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -20,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sp.entity.SysArea;
 import com.sp.service.SysAreaService;
 import com.sp.utils.DateUtils;
-import com.sp.utils.Page;
 
 import net.sf.json.JSONObject;
 
@@ -35,7 +33,6 @@ import net.sf.json.JSONObject;
 @Controller
 @RequestMapping(value="/sys/area/")
 public class SysAreaController {
-	private static Logger logger =Logger.getLogger(SysAreaController.class);
 	
 	@Resource
 	private SysAreaService sysAreaService;

@@ -1,24 +1,30 @@
 package com.sp.web;
 
 
-import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.ExpiredCredentialsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.UnauthorizedException;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sp.entity.SysUser;
 import com.sp.service.SysUserService;
 
 
 @Controller
 public class LoginController {
-	private static Logger logger =Logger.getLogger(SysUserController.class);
 	@Resource
 	private SysUserService sysUserService;
 	/**
@@ -35,69 +41,54 @@ public class LoginController {
 	public String login(HttpServletRequest request,HttpServletResponse response){
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String url ="redirect:/login.jsp";
-		String loginMessage = "登录失败！";
+		String url ="redirect:/login";
+		String msg = "登录失败！";
 		HttpSession session = request.getSession();
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		token.setRememberMe(true);  
+		Subject subject = SecurityUtils.getSubject(); 
 		try {
-			//**************************************************************
-			/*System.out.println("request.getLocalAddr()>>>>>"+request.getLocalAddr());
-			System.out.println("request.getRemoteHost()>>>>>"+request.getRemoteHost());
-			System.out.println("request.getRemoteAddr()>>>>>"+request.getRemoteAddr());*/
-			
-			
-			//**************************************************************
-			
-			SysUser user = sysUserService.getSysUserByLoginName(username);
-			boolean loginFlag = false;
-			if(user!=null && !"".equals(password)){
-				if(user.getPassword().equals(password)){
-					//用户信息保存在session里
-					Date date = new Date();
-					session.setAttribute("loginname", user.getName());
-					session.setAttribute("loginid", user.getId());
-					session.setAttribute("logindate", date);
-					session.setAttribute("loginip", request.getRemoteAddr());
-					user.setLoginDate(date);
-					user.setLoginIp(request.getLocalAddr());
-					sysUserService.updateSysUserStatus(user);
-					loginMessage = "登录成功！";
-					loginFlag = true;
-				}else{
-					loginMessage = "登录名或密码错误，登录失败！";
-					
-				}
-			}else{
-				loginMessage = "登录名或密码错误，登录失败！";
-			}
-			if(loginFlag){
+			subject.login(token);
+			if(subject.isAuthenticated()){
+		        //return "redirect:" + savedRequest.getRequestUrl();
+				msg = "登录成功！";
 				url =  "redirect:main/main";
+			}else{
+				subject.logout();
 			}
-		} catch (Exception e) {
-			loginMessage = "登录名或密码错误，登录失败！";
-			logger.info(loginMessage+e.getMessage());
-			e.printStackTrace();
-		}finally{
-			session.setAttribute("loginMessage", loginMessage);
-			logger.info(loginMessage);
-			return url;
+		}catch (IncorrectCredentialsException e) {  
+	        msg = "登录密码错误. Password for account " + token.getPrincipal() + " was incorrect.";  
+	        //model.addAttribute("message", msg);  
+	        System.out.println(msg);  
+	    } catch (ExcessiveAttemptsException e) {  
+	        msg = "登录失败次数过多";  
+	        //model.addAttribute("message", msg);  
+	        System.out.println(msg);  
+	    } catch (LockedAccountException e) {  
+	        msg = "帐号已被锁定. The account for username " + token.getPrincipal() + " was locked.";  
+	        //model.addAttribute("message", msg);  
+	        System.out.println(msg);  
+	    } catch (DisabledAccountException e) {  
+	        msg = "帐号已被禁用. The account for username " + token.getPrincipal() + " was disabled.";  
+	        //model.addAttribute("message", msg);  
+	        System.out.println(msg);  
+	    } catch (ExpiredCredentialsException e) {  
+	        msg = "帐号已过期. the account for username " + token.getPrincipal() + "  was expired.";  
+	        //model.addAttribute("message", msg);  
+	        System.out.println(msg);  
+	    } catch (UnknownAccountException e) {  
+	        msg = "帐号不存在. There is no user with username of " + token.getPrincipal();  
+	        //model.addAttribute("message", msg);  
+	        System.out.println(msg);  
+	    } catch (UnauthorizedException e) {  
+	        msg = "您没有得到相应的授权！" + e.getMessage();  
+	        //model.addAttribute("message", msg);  
+	        System.out.println(msg);  
+	    }  finally{
+	    	session.setAttribute("loginMessage", msg);
+	    	return url;
 		}
 		
 	}
 	
-	/**
-	 * 
-	 * @Description 退出系统
-	 * @param request
-	 * @param response
-	 * @return
-	 * @author: Gaoxueyong
-	 * Create at: 2016年11月8日 下午3:45:14
-	 */
-	@RequestMapping(value="/logout")
-	public String logout(HttpServletRequest request,HttpServletResponse response){
-		HttpSession session = request.getSession();
-		//清除Session  
-        session.invalidate(); 
-        return "redirect:/login.jsp";
-	}
 }

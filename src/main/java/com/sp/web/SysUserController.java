@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -38,8 +37,6 @@ import com.sp.utils.Page;
 @Controller
 @RequestMapping(value="/sys/user/")
 public class SysUserController {
-	
-	private static Logger logger =Logger.getLogger(SysUserController.class);
 	
 	@Resource
 	private SysUserService sysUserService;

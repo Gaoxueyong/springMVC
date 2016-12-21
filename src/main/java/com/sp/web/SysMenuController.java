@@ -22,7 +22,6 @@ import com.sp.entity.SysMenu;
 import com.sp.service.SysMenuService;
 import com.sp.service.SysRoleMenuService;
 import com.sp.utils.DateUtils;
-import com.sp.utils.Page;
 
 import net.sf.json.JSONObject;
 
@@ -37,8 +36,6 @@ import net.sf.json.JSONObject;
 @Controller
 @RequestMapping(value="/sys/menu/")
 public class SysMenuController {
-	
-	private static Logger logger =Logger.getLogger(SysMenuController.class);
 	
 	@Resource
 	private SysMenuService sysMenuService;

@@ -20,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sp.entity.SysOffice;
 import com.sp.service.SysOfficeService;
 import com.sp.utils.DateUtils;
-import com.sp.utils.Page;
 
 import net.sf.json.JSONObject;
 
@@ -35,8 +34,6 @@ import net.sf.json.JSONObject;
 @Controller
 @RequestMapping(value="/sys/office/")
 public class SysOfficeController {
-	private static Logger logger =Logger.getLogger(SysOfficeController.class);
-	
 	@Resource
 	private SysOfficeService sysOfficeService;
 	

@@ -1,5 +1,10 @@
 package com.sp.interceptor;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
@@ -10,6 +15,7 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -17,12 +23,16 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 
+import com.sp.entity.SysMenu;
 import com.sp.entity.SysUser;
+import com.sp.service.SysMenuService;
 import com.sp.service.SysUserService;
 
 public class MyRealm extends AuthorizingRealm{
 	@Resource
 	private SysUserService sysUserService;
+	@Resource
+	private SysMenuService sysMenuService;
 	 /** 
      * 为当前登录的Subject授予角色和权限 
      * @see  经测试:本例中该方法的调用时机为需授权资源被访问时 
@@ -33,7 +43,32 @@ public class MyRealm extends AuthorizingRealm{
     @Override  
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals){  
         //获取当前登录的用户名,等价于(String)principals.fromRealm(this.getName()).iterator().next()  
-        String currentUsername = (String)super.getAvailablePrincipal(principals);  
+        String account = (String)super.getAvailablePrincipal(principals);  
+        Map<String, Object> paramerMap = new HashMap<String,Object>();
+        paramerMap.put("account", account);
+        List<SysMenu> menuList = sysMenuService.getSysMenuByAccount(paramerMap);
+        SysUser user = sysUserService.getSysUserByLoginName(account);
+        SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo(); 
+        List<String> roleList = new ArrayList<String>();  
+        List<String> permissionList = new ArrayList<String>();  
+        Map<String,Object> containMapMenu = new HashMap<String,Object>();
+        Map<String,Object> containMapPermission = new HashMap<String,Object>();
+        if(user!=null){
+        	for(SysMenu menu:menuList){
+        		if(!containMapMenu.containsKey(menu.getRoleName())){
+        			roleList.add(menu.getRoleName());
+        			containMapMenu.put(menu.getRoleName(), menu.getRoleName());
+        		}
+        		if(!containMapPermission.containsKey(menu.getPermission())&&!"".equals(menu.getPermission())){
+        			permissionList.add(menu.getPermission());
+        			containMapPermission.put(menu.getPermission(), menu.getPermission());
+        		}
+        	}
+        	simpleAuthorInfo.addRoles(roleList);
+        	simpleAuthorInfo.addStringPermissions(permissionList);
+        }else{
+        	 throw new AuthorizationException();  
+        }
 //      List<String> roleList = new ArrayList<String>();  
 //      List<String> permissionList = new ArrayList<String>();  
 //      //从数据库中获取当前登录用户的详细信息  
@@ -62,19 +97,19 @@ public class MyRealm extends AuthorizingRealm{
 //      SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();  
 //      simpleAuthorInfo.addRoles(roleList);  
 //      simpleAuthorInfo.addStringPermissions(permissionList);  
-        SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();  
+       // SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();  
         //实际中可能会像上面注释的那样从数据库取得  
-        if(null!=currentUsername && "mike".equals(currentUsername)){  
+       /* if(null!=account && "mike".equals(account)){  
             //添加一个角色,不是配置意义上的添加,而是证明该用户拥有admin角色    
             simpleAuthorInfo.addRole("admin");  
             //添加权限  
             simpleAuthorInfo.addStringPermission("admin:manage");  
             System.out.println("已为用户[mike]赋予了[admin]角色和[admin:manage]权限");  
             return simpleAuthorInfo;  
-        }
+        }*/
         //若该方法什么都不做直接返回null的话,就会导致任何用户访问/admin/listUser.jsp时都会自动跳转到unauthorizedUrl指定的地址  
         //详见applicationContext.xml中的<bean id="shiroFilter">的配置  
-        return null;  
+        return simpleAuthorInfo;
     }  
   
       

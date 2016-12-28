@@ -45,6 +45,9 @@ public class SysMenu {
     /*虚拟字段 用于显示*/
     private String parentName;
     
+    private String roleId;
+    private String roleName;
+    
     public String getId() {
         return id;
     }
@@ -180,5 +183,22 @@ public class SysMenu {
 	public void setParentName(String parentName) {
 		this.parentName = parentName;
 	}
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+	
     
 }

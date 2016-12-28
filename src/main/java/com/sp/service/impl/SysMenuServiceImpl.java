@@ -219,5 +219,18 @@ public class SysMenuServiceImpl implements SysMenuService {
 		} 
 		return getMenuRootList(returnList, menuList,containMap);
 	}
+
+	/**
+     * 
+     * @Description 根据用户名账号获取菜单资源
+     * @param paramerMap   account
+     * @return
+     * @author: Gaoxueyong
+     * Create at: 2016年12月27日 上午11:50:22
+     */
+	@Override
+	public List<SysMenu> getSysMenuByAccount(Map<String, Object> paramerMap) {
+		return sysMenuDao.getSysMenuByAccount(paramerMap);
+	}
 	
 }

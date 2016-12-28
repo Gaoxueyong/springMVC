@@ -2,6 +2,8 @@ package com.sp.web;
 
 
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +22,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sp.entity.SysUser;
 import com.sp.service.SysUserService;
 
 
@@ -41,7 +44,7 @@ public class LoginController {
 	public String login(HttpServletRequest request,HttpServletResponse response){
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String url ="redirect:/login";
+		String url ="redirect:/login.jsp";
 		String msg = "登录失败！";
 		HttpSession session = request.getSession();
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -50,7 +53,16 @@ public class LoginController {
 		try {
 			subject.login(token);
 			if(subject.isAuthenticated()){
-		        //return "redirect:" + savedRequest.getRequestUrl();
+				SysUser user = sysUserService.getSysUserByLoginName(username);
+				//用户信息保存在session里
+				Date date = new Date();
+				session.setAttribute("loginname", user.getName());
+				session.setAttribute("loginid", user.getId());
+				session.setAttribute("logindate", date);
+				session.setAttribute("loginip", request.getRemoteAddr());
+				user.setLoginDate(date);
+				user.setLoginIp(request.getLocalAddr());
+				sysUserService.updateSysUserStatus(user);
 				msg = "登录成功！";
 				url =  "redirect:main/main";
 			}else{

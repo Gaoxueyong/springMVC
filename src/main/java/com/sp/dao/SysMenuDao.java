@@ -114,4 +114,14 @@ public interface SysMenuDao {
      */
     List<Map<String, Object>> getSysMenuTreeDataChecked(Map<String, Object> paramerMap);
     
+    /**
+     * 
+     * @Description 根据用户名账号获取菜单资源
+     * @param paramerMap   account
+     * @return
+     * @author: Gaoxueyong
+     * Create at: 2016年12月27日 上午11:50:22
+     */
+    List<SysMenu> getSysMenuByAccount(Map<String, Object> paramerMap);
+    
 }

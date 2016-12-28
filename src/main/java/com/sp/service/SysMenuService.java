@@ -125,4 +125,14 @@ public interface SysMenuService {
      * Create at: 2016年12月9日 下午3:35:18
      */
     List<SysMenu> getTreeList(List<SysMenu> menuRoot,List<SysMenu>menuList,List<SysMenu> resultList);
+    
+    /**
+     * 
+     * @Description 根据用户名账号获取菜单资源
+     * @param paramerMap   account
+     * @return
+     * @author: Gaoxueyong
+     * Create at: 2016年12月27日 上午11:50:22
+     */
+    List<SysMenu> getSysMenuByAccount(Map<String, Object> paramerMap);
 }

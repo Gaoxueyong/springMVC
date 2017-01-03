@@ -2,6 +2,7 @@ package com.sp.web;
 
 
 
+import java.net.InetAddress;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -54,6 +55,7 @@ public class LoginController {
 			subject.login(token);
 			if(subject.isAuthenticated()){
 				SysUser user = sysUserService.getSysUserByLoginName(username);
+				String ip = InetAddress.getLocalHost().getHostAddress().toString(); // 获取服务器IP地址
 				//用户信息保存在session里
 				Date date = new Date();
 				session.setAttribute("loginname", user.getName());
@@ -61,7 +63,7 @@ public class LoginController {
 				session.setAttribute("logindate", date);
 				session.setAttribute("loginip", request.getRemoteAddr());
 				user.setLoginDate(date);
-				user.setLoginIp(request.getLocalAddr());
+				user.setLoginIp(ip);
 				sysUserService.updateSysUserStatus(user);
 				msg = "登录成功！";
 				url =  "redirect:main/main";

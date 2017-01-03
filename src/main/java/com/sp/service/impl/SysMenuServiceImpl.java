@@ -232,5 +232,18 @@ public class SysMenuServiceImpl implements SysMenuService {
 	public List<SysMenu> getSysMenuByAccount(Map<String, Object> paramerMap) {
 		return sysMenuDao.getSysMenuByAccount(paramerMap);
 	}
+
+	/**
+     * 
+     * @Description 获取菜单列表 根据登录人权限
+     * @author: Gaoxueyong
+     * @param paramerMap
+     * @return
+     * Create at: 2017年1月3日 下午2:21:39
+     */
+	@Override
+	public List<SysMenu> getSysMenuListByPermission(Map<String, Object> paramerMap) {
+		return sysMenuDao.getSysMenuListByPermission(paramerMap);
+	}
 	
 }

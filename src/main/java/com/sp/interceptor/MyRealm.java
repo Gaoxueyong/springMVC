@@ -24,8 +24,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 
 import com.sp.entity.SysMenu;
+import com.sp.entity.SysRole;
 import com.sp.entity.SysUser;
 import com.sp.service.SysMenuService;
+import com.sp.service.SysRoleService;
 import com.sp.service.SysUserService;
 
 public class MyRealm extends AuthorizingRealm{
@@ -33,6 +35,8 @@ public class MyRealm extends AuthorizingRealm{
 	private SysUserService sysUserService;
 	@Resource
 	private SysMenuService sysMenuService;
+	@Resource
+	private SysRoleService sysRoleService;
 	 /** 
      * 为当前登录的Subject授予角色和权限 
      * @see  经测试:本例中该方法的调用时机为需授权资源被访问时 
@@ -40,26 +44,29 @@ public class MyRealm extends AuthorizingRealm{
      * @see  个人感觉若使用了Spring3.1开始提供的ConcurrentMapCache支持,则可灵活决定是否启用AuthorizationCache 
      * @see  比如说这里从数据库获取权限信息时,先去访问Spring3.1提供的缓存,而不使用Shior提供的AuthorizationCache 
      */  
-    @Override  
+    @SuppressWarnings("unused")
+	@Override  
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals){  
         //获取当前登录的用户名,等价于(String)principals.fromRealm(this.getName()).iterator().next()  
         String account = (String)super.getAvailablePrincipal(principals);  
+        SysUser user = sysUserService.getSysUserByLoginName(account);
         Map<String, Object> paramerMap = new HashMap<String,Object>();
         paramerMap.put("account", account);
         List<SysMenu> menuList = sysMenuService.getSysMenuByAccount(paramerMap);
-        SysUser user = sysUserService.getSysUserByLoginName(account);
+        paramerMap = new HashMap<String,Object>();
+        paramerMap.put("userId", user.getId());
+        List<SysRole> sysRoleList = sysRoleService.getSysRoleListByUserId(paramerMap);
         SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo(); 
         List<String> roleList = new ArrayList<String>();  
         List<String> permissionList = new ArrayList<String>();  
-        Map<String,Object> containMapMenu = new HashMap<String,Object>();
+       
         Map<String,Object> containMapPermission = new HashMap<String,Object>();
         if(user!=null){
+        	for(SysRole role:sysRoleList){
+        		roleList.add(role.getName());
+        	}
         	for(SysMenu menu:menuList){
-        		if(!containMapMenu.containsKey(menu.getRoleName())){
-        			roleList.add(menu.getRoleName());
-        			containMapMenu.put(menu.getRoleName(), menu.getRoleName());
-        		}
-        		if(!containMapPermission.containsKey(menu.getPermission())&&!"".equals(menu.getPermission())){
+        		if(!containMapPermission.containsKey(menu.getPermission())&&!"".equals(menu.getPermission())&&menu.getPermission()!=null){
         			permissionList.add(menu.getPermission());
         			containMapPermission.put(menu.getPermission(), menu.getPermission());
         		}
@@ -126,7 +133,7 @@ public class MyRealm extends AuthorizingRealm{
         System.out.println("验证当前Subject时获取到token为" + ReflectionToStringBuilder.toString(token, ToStringStyle.MULTI_LINE_STYLE));  
 		SysUser user = sysUserService.getSysUserByLoginName(token.getUsername());
 		if (null != user) {
-			AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getName(), user.getPassword(),user.getName());
+			AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getLoginName(), user.getPassword(), user.getLoginName());
 			this.setSession("currentUser", user);
 			return authcInfo;
 		} else {

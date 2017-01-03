@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sys" tagdir="/WEB-INF/tags/sys" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
@@ -42,7 +43,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/sys/user/list">角色列表</a></li>
-		<li><a href="${ctx}/sys/role/sysRoleForm">角色添加</a></li>
+		<shiro:hasPermission name="sys:role:add"><li><a href="${ctx}/sys/role/sysRoleForm">角色添加</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="sysRole" action="${ctx}/sys/role/list" method="post" class="breadcrumb form-search">
 		<input id="currentNo" name="currentNo" type="hidden" value="${page.currentNo}"/>
@@ -86,8 +87,8 @@
 					<fmt:formatDate value="${role.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td  style="text-align: center;">
-					<a href="${ctx}/sys/role/sysRoleForm?id=${role.id}">修改</a>
-					<a href="${ctx}/sys/role/delSysRoleById?id=${role.id}" onclick="return confirmx('确认要删除该角色吗？删除后该角色下面的人员也会一并删除', this.href)">删除</a>
+					<shiro:hasPermission name="sys:role:edit"><a href="${ctx}/sys/role/sysRoleForm?id=${role.id}">修改</a></shiro:hasPermission>
+					<shiro:hasPermission name="sys:role:del"><a href="${ctx}/sys/role/delSysRoleById?id=${role.id}" onclick="return confirmx('确认要删除该角色吗？删除后该角色下面的人员也会一并删除', this.href)">删除</a></shiro:hasPermission>
 				</td>
 			</tr>
 		</c:forEach>

@@ -4,6 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sys" tagdir="/WEB-INF/tags/sys" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
@@ -43,7 +44,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/sys/user/list">用户列表</a></li>
-		<li><a href="${ctx}/sys/user/sysUserForm">用户添加</a></li>
+		<shiro:hasPermission name="sys:user:add"><li><a href="${ctx}/sys/user/sysUserForm">用户添加</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="sysUser" action="${ctx}/sys/user/list" method="post" class="breadcrumb form-search">
 		<input id="currentNo" name="currentNo" type="hidden" value="${page.currentNo}"/>
@@ -73,7 +74,7 @@
 			<tr>
 				<td  style="text-align: center;">${user.name}</td>
 				<td  style="text-align: center;">
-					 ${user.no}
+					 ${user.loginName}
 				</td>
 				<td  style="text-align: center;">
 					 <c:choose>
@@ -89,8 +90,8 @@
 					<fmt:formatDate value="${user.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td  style="text-align: center;">
-					<a href="${ctx}/sys/user/sysUserForm?id=${user.id}">修改</a>
-					<a href="${ctx}/sys/user/delSysUserById?id=${user.id}" onclick="return confirmx('确认要删除该用户吗？', this.href)">删除</a>
+					<shiro:hasPermission name="sys:user:edit"><a href="${ctx}/sys/user/sysUserForm?id=${user.id}">修改</a></shiro:hasPermission>
+					<shiro:hasPermission name="sys:user:del"><a href="${ctx}/sys/user/delSysUserById?id=${user.id}" onclick="return confirmx('确认要删除该用户吗？', this.href)">删除</a></shiro:hasPermission>
 				</td>
 			</tr>
 		</c:forEach>

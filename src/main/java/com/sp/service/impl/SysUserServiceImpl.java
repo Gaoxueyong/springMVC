@@ -86,8 +86,10 @@ public class SysUserServiceImpl implements SysUserService{
 			sysUserRole.setUserId(sysUser.getId());
 			String[] roleStr = sysUser.getRoleStr().split(",");
 			for(String roleId:roleStr){
-				sysUserRole.setRoleId(roleId);
-				sysUserRoleDao.insertSysUserRole(sysUserRole);
+				if(!"".equals(roleId)){
+					sysUserRole.setRoleId(roleId);
+					sysUserRoleDao.insertSysUserRole(sysUserRole);
+				}
 				
 			}
 		}

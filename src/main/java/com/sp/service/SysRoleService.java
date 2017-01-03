@@ -96,4 +96,14 @@ public interface SysRoleService {
      * Create at: 2016年11月21日 上午10:43:38
      */
     public int getSysRoleListTotalNum(Map<String, Object> paramerMap);
+    
+    /**
+     * 
+     * @Description  根据用户id获取其角色信息
+     * @author: Gaoxueyong
+     * @param paramerMap userId
+     * @return
+     * Create at: 2017年1月3日 下午3:09:14
+     */
+    List<SysRole>  getSysRoleListByUserId(Map<String, Object> paramerMap);
 }

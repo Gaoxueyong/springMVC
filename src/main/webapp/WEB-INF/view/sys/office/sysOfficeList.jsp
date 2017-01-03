@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sys" tagdir="/WEB-INF/tags/sys" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
@@ -24,8 +25,6 @@
 	<script type="text/javascript" src="${ctx }/static/static/My97DatePicker/WdatePicker.js" ></script>
 	<script type="text/javascript" src="${ctx }/static/static/common/mustache.min.js" ></script>
 	<script type="text/javascript" src="${ctx }/static/static/common/jeesite.js" ></script>
-	<link href="${ctx}/static/static/treeTable/themes/vsStyle/treeTable.min.css" rel="stylesheet" type="text/css" />
-	<script src="${ctx}/static/static/treeTable/jquery.treeTable.min.js" type="text/javascript"></script>
 	<!-- jquery treeTable -->
 	<script type="text/javascript" src="${ctx }/static/treeTable/treeTable v1.4.2/script/treeTable/jquery.treeTable.js" ></script>
 	<link href="${ctx }/static/treeTable/treeTable v1.4.2/script/treeTable/default/jquery.treeTable.css" rel="stylesheet" type="text/css" />
@@ -54,7 +53,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/sys/office/list">机构列表</a></li>
-		<li><a href="${ctx}/sys/office/sysOfficeForm">机构添加</a></li>
+		<shiro:hasPermission name="sys:office:add"><li><a href="${ctx}/sys/office/sysOfficeForm">机构添加</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="sysOffice" action="${ctx}/sys/office/list" method="post" class="breadcrumb form-search">
 		<ul class="ul-form">
@@ -82,9 +81,9 @@
 				<td  style="text-align: center;">${office.parentName}</td>
 				<td  style="text-align: left;">${office.remarks }</td>
 				<td  style="text-align: center;">
-					<a href="${ctx}/sys/office/sysOfficeForm?id=${office.id}">修改</a>
+					<shiro:hasPermission name="sys:office:edit"><a href="${ctx}/sys/office/sysOfficeForm?id=${office.id}">修改</a></shiro:hasPermission>
 					<c:if test="${not empty office.parentName }">
-					<a href="${ctx}/sys/office/delSysOfficeById?id=${office.id}" onclick="return confirmx('确认要删除该组织吗？删除后该组织的下级组织也会被删除', this.href)">删除</a>
+						<shiro:hasPermission name="sys:office:del"><a href="${ctx}/sys/office/delSysOfficeById?id=${office.id}" onclick="return confirmx('确认要删除该组织吗？删除后该组织的下级组织也会被删除', this.href)">删除</a></shiro:hasPermission>
 					</c:if>
 				</td>
 			</tr>

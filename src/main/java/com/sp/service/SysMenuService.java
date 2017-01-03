@@ -135,4 +135,14 @@ public interface SysMenuService {
      * Create at: 2016年12月27日 上午11:50:22
      */
     List<SysMenu> getSysMenuByAccount(Map<String, Object> paramerMap);
+    
+    /**
+     * 
+     * @Description 获取菜单列表 根据登录人权限
+     * @author: Gaoxueyong
+     * @param paramerMap
+     * @return
+     * Create at: 2017年1月3日 下午2:21:39
+     */
+    List<SysMenu> getSysMenuListByPermission(Map<String, Object> paramerMap);
 }

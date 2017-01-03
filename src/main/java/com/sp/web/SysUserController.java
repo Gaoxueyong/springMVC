@@ -62,6 +62,9 @@ public class SysUserController {
 		paramerMap.put("pageSize", request.getParameter("pageSize"));
 		paramerMap.put("delFlag","0");
 		paramerMap.put("name", request.getParameter("name"));
+		paramerMap.put("orderField", "create_date");
+		paramerMap.put("orderSeq", "desc");
+		 
 		Page<SysUser> page = sysUserService.getSysUserListPage(new Page<SysUser>(), paramerMap);
 		model.addAttribute("page", page);
 		model.addAttribute("sysUser", sysUser);

@@ -109,4 +109,10 @@
    <select id="getSysRoleListTotalNum"  parameterType="java.util.Map" resultType ="java.lang.Integer" >
   	 select  count(id) totalNum  from sys_role <include refid="dynamicWhere" /> 
   </select>
+  <!-- 根据用登录账号获取 -->
+  <select id="getSysRoleListByUserId"  parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select sr.* from sys_user_role sur left join sys_role sr on sur.role_id = sr.id where sur.user_id = #{userId}
+  </select>
+  
+  
 </mapper>

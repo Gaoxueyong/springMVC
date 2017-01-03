@@ -184,4 +184,17 @@ public class SysRoleServiceImpl implements SysRoleService {
 		
 		 return "sys/role/sysMenuTree";
 	}
+
+	 /**
+     * 
+     * @Description  根据用户id获取其角色信息
+     * @param paramerMap userId
+     * @return
+     * @author: Gaoxueyong
+     * Create at: 2017年1月3日 下午3:09:14
+     */
+	@Override
+	public List<SysRole> getSysRoleListByUserId(Map<String, Object> paramerMap) {
+		return sysRoleDao.getSysRoleListByUserId(paramerMap);
+	}
 }

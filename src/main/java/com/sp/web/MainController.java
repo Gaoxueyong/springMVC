@@ -38,8 +38,12 @@ public class MainController {
 		paramerMap.put("parentId","1");//一级菜单
 		paramerMap.put("orderField","sort");//一级菜单
 		paramerMap.put("orderSeq","asc");//一级菜单${orderField} ${orderSeq}
-		List<SysMenu> menuListFirst = sysMenuService.getSysMenuList(paramerMap);
-		model.addAttribute("menuListFirst", menuListFirst);
+		paramerMap.put("userId", request.getSession().getAttribute("loginid"));
+		List<SysMenu> menuListFirst = null;
+		if(request.getSession().getAttribute("loginid")!=null){
+			menuListFirst = sysMenuService.getSysMenuListByPermission(paramerMap);
+			model.addAttribute("menuListFirst", menuListFirst);
+		}
 		return "main/main";
 	}
 	
@@ -52,7 +56,11 @@ public class MainController {
 		paramerMap.put("childrens",request.getParameter("parentId"));//parentId
 		paramerMap.put("orderField","sort");//一级菜单
 		paramerMap.put("orderSeq","asc");//一级菜单${orderField} ${orderSeq}
-		List<SysMenu> menuList = sysMenuService.getSysMenuList(paramerMap);
+		paramerMap.put("userId", request.getSession().getAttribute("loginid"));
+		List<SysMenu> menuList = null;
+		if(request.getSession().getAttribute("loginid")!=null){
+			menuList = sysMenuService.getSysMenuListByPermission(paramerMap);
+		}
 		model.addAttribute("menuList", menuList);
 		model.addAttribute("parentId", request.getParameter("parentId"));
 		return "main/menuTree";

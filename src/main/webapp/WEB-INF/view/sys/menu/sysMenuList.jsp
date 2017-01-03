@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sys" tagdir="/WEB-INF/tags/sys" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
@@ -52,7 +53,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="${ctx}/sys/menu/list">菜单列表</a></li>
-		<li><a href="${ctx}/sys/menu/sysMenuForm?parentId=${sysMenu.parentId}">菜单添加</a></li>
+		<shiro:hasPermission name="sys:menu:add"><li><a href="${ctx}/sys/menu/sysMenuForm?parentId=${sysMenu.parentId}">菜单添加</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="sysMenu" action="${ctx}/sys/menu/list" method="post" class="breadcrumb form-search">
 		<input id="currentNo" name="currentNo" type="hidden" value="${page.currentNo}"/>
@@ -98,9 +99,9 @@
 				<td style="text-align: center;">${menu.sort }</td>
 				<%-- <td>${menu.remarks }</td> --%>
 				<td style="text-align: center;">
-					<a href="${ctx}/sys/menu/sysMenuForm?id=${menu.id}">修改</a>
+					<shiro:hasPermission name="sys:menu:edit"><a href="${ctx}/sys/menu/sysMenuForm?id=${menu.id}">修改</a></shiro:hasPermission>
 					<c:if test="${not empty menu.parentName }">
-					<a href="${ctx}/sys/menu/delSysMenuById?id=${menu.id}" onclick="return confirmx('确认要删除该区域吗？删除后连同其下属的区域也会一并删除！', this.href)">删除</a>
+						<shiro:hasPermission name="sys:menu:del"><a href="${ctx}/sys/menu/delSysMenuById?id=${menu.id}" onclick="return confirmx('确认要删除该区域吗？删除后连同其下属的区域也会一并删除！', this.href)">删除</a></shiro:hasPermission>
 					</c:if>
 				</td>
 			</tr>

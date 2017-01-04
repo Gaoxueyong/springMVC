@@ -83,9 +83,12 @@
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>  
     </listener>  
     <!-- log4j配置 -->
-    
+    <!-- session超时时间 -->
+    <session-config>   
+	  <session-timeout>40</session-timeout>   
+	</session-config>  
 	<!-- 不过滤一下文件 -->
-	<servlet-mapping>
+	<!-- <servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.js</url-pattern>
 	</servlet-mapping>
@@ -104,11 +107,11 @@
 	<servlet-mapping>
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.gif</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping>-->
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> 
 	<listener />
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

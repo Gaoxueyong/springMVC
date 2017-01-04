@@ -126,18 +126,21 @@
             <map>
                 <entry key="cas" value-ref="casFilter"/>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
+                <entry key="logout" value-ref="logoutFilter" />
             </map>
         </property>
 	    <property name="filterChainDefinitions">  
 	        <value>  
 	            /static/** = anon
 				<!-- 这里.jsp要与shiroFilter里面的loginUrl的值保持一致-->
-				/login.jsp = authc
+				/login.jsp = anon
 				/logout = logout
 	        </value>  
 	    </property>
 	</bean>  
-	  
+	 <bean id="logoutFilter" class="com.sp.interceptor.SystemLogoutFilter">
+	     <property name="redirectUrl" value="/login.jsp" />
+	</bean>
 	 <!-- CAS认证过滤器 -->  
 	<bean id="casFilter" class="org.apache.shiro.cas.CasFilter">  
 		<property name="failureUrl" value="/login"/>

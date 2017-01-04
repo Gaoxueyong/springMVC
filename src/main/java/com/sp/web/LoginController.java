@@ -51,7 +51,9 @@ public class LoginController {
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 		token.setRememberMe(true);  
 		Subject subject = SecurityUtils.getSubject(); 
+		//subject.getSession().setTimeout(1800000);
 		try {
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>4");
 			subject.login(token);
 			if(subject.isAuthenticated()){
 				SysUser user = sysUserService.getSysUserByLoginName(username);

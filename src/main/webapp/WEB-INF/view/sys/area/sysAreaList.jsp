@@ -52,8 +52,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/sys/area/list">机构列表</a></li>
-		<shiro:hasPermission name="sys:area:add"><li><a href="${ctx}/sys/area/sysAreaForm">区域添加</a></li></shiro:hasPermission>
+		<li class="active"><a href="${ctx}/sys/area/list?parentId=${sysArea.parentId}">机构列表</a></li>
+		<shiro:hasPermission name="sys:area:add"><li><a href="${ctx}/sys/area/sysAreaForm?parentId=${sysArea.parentId}">区域添加</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="sysArea" action="${ctx}/sys/area/list" method="post" class="breadcrumb form-search">
 		<input id="currentNo" name="currentNo" type="hidden" value="${page.currentNo}"/>

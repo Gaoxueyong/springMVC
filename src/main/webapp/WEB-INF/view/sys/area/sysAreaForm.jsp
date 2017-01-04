@@ -78,8 +78,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/sys/area/list">区域列表</a></li>
-		<li class="active"><a href="${ctx}/sys/area/sysAreaForm">区域${not empty office.id?'修改':'添加'}查看</a></li>
+		<li><a href="${ctx}/sys/area/list?parentId=${sysArea.parentId}">区域列表</a></li>
+		<li class="active"><a href="${ctx}/sys/area/sysAreaForm?parentId=${sysArea.parentId}">区域${not empty office.id?'修改':'添加'}查看</a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="sysArea" action="${ctx}/sys/area/saveSysArea" method="post" class="form-horizontal">
 		<form:hidden path="id"/>

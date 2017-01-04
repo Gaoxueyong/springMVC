@@ -98,8 +98,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/sys/menu/list">区域列表</a></li>
-		<li class="active"><a href="${ctx}/sys/menu/sysMenuForm">区域${not empty sysMenu.id?'修改':'添加'}查看</a></li>
+		<li><a href="${ctx}/sys/menu/list?parentId=${sysMenu.parentId}">区域列表</a></li>
+		<li class="active"><a href="${ctx}/sys/menu/sysMenuForm?parentId=${sysMenu.parentId}">区域${not empty sysMenu.id?'修改':'添加'}查看</a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="sysMenu" action="${ctx}/sys/menu/saveSysMenu" method="post" class="form-horizontal">
 		<form:hidden path="id"/>

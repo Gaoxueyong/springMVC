@@ -100,8 +100,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/sys/office/list">机构列表</a></li>
-		<li class="active"><a href="${ctx}/sys/office/sysOfficeForm">机构${not empty sysOffice.id?'修改':'添加'}</a></li>
+		<li><a href="${ctx}/sys/office/list?parentId=${sysOffice.parentId}">机构列表</a></li>
+		<li class="active"><a href="${ctx}/sys/office/sysOfficeForm?parentId=${sysOffice.parentId}">机构${not empty sysOffice.id?'修改':'添加'}</a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="sysOffice" action="${ctx}/sys/office/saveSysOffice" method="post" class="form-horizontal">
 		<form:hidden path="id"/>

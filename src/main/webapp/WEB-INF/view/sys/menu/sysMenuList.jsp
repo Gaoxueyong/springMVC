@@ -52,7 +52,7 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/sys/menu/list">菜单列表</a></li>
+		<li class="active"><a href="${ctx}/sys/menu/list?parentId=${sysMenu.parentId}">菜单列表</a></li>
 		<shiro:hasPermission name="sys:menu:add"><li><a href="${ctx}/sys/menu/sysMenuForm?parentId=${sysMenu.parentId}">菜单添加</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="sysMenu" action="${ctx}/sys/menu/list" method="post" class="breadcrumb form-search">

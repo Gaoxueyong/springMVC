@@ -52,8 +52,8 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/sys/office/list">机构列表</a></li>
-		<shiro:hasPermission name="sys:office:add"><li><a href="${ctx}/sys/office/sysOfficeForm">机构添加</a></li></shiro:hasPermission>
+		<li class="active"><a href="${ctx}/sys/office/list?parentId=${sysOffice.parentId}">机构列表</a></li>
+		<shiro:hasPermission name="sys:office:add"><li><a href="${ctx}/sys/office/sysOfficeForm?parentId=${sysOffice.parentId}">机构添加</a></li></shiro:hasPermission>
 	</ul>
 	<form:form id="searchForm" modelAttribute="sysOffice" action="${ctx}/sys/office/list" method="post" class="breadcrumb form-search">
 		<ul class="ul-form">

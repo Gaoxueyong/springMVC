@@ -47,8 +47,10 @@
    
    <sql id="dynamicWhere">
 		<where>
-			<if test="name != null and name != ''">AND name like  '%${name}%' </if>
+			<if test="id != null and id != ''">AND id =#{id} </if>
+			<if test="name != null and name != ''">AND name = #{name} </if>
 			<if test="delFlag != null and delFlag != ''">AND del_flag = '${delFlag}' </if>
+			<if test="childrens != null and childrens != ''">AND (find_in_set('${childrens}',SUBSTRING(parent_ids,1,(LENGTH(parent_ids)-1)))>0 or id='${childrens}') </if>
 		</where>
    </sql>
    

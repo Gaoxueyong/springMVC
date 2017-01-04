@@ -13,6 +13,9 @@
 		<mybatis.version>3.4.1</mybatis.version>
 		<log4j.version>1.2.14</log4j.version>
 		<slf4j.version></slf4j.version>
+		<aspectj.version>1.6.12</aspectj.version>  
+		<shiro.version>1.2.3</shiro.version>
+		<slf4j.version>1.7.7</slf4j.version>
 	</properties>
   <dependencies>
     	<dependency>  
@@ -117,6 +120,31 @@
             <version>${log4j.version}</version>  
         </dependency>  
           
+          <!-- LOGGING begin -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<!-- common-logging 实际调用slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<!-- java.util.logging 实际调用slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<!-- LOGGING end -->
+          
           
         <!-- 格式化对象，方便输出日志 -->  
         <dependency>  
@@ -165,6 +193,50 @@
 		    <artifactId>json-lib</artifactId>
 		    <version>2.4</version>
 		    <classifier>jdk15</classifier>
+		</dependency>
+		
+		 <!-- aspectjweaver -->  
+        <dependency>  
+            <groupId>org.aspectj</groupId>  
+            <artifactId>aspectjweaver</artifactId>  
+            <version>${aspectj.version}</version>  
+        </dependency>  
+        <dependency>  
+            <groupId>org.aspectj</groupId>  
+            <artifactId>aspectjrt</artifactId>  
+            <version>${aspectj.version}</version>  
+        </dependency>  
+         <!-- shiro -->  
+        <dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-cas</artifactId>
+			<version>${shiro.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${shiro.version}</version>
 		</dependency>
   </dependencies>
   <build>

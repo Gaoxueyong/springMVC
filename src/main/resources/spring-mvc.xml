@@ -59,5 +59,4 @@
 			<bean class="com.sp.interceptor.SystemInterceptor"></bean>
 		</mvc:interceptor>
      </mvc:interceptors>
-     
 </beans>  

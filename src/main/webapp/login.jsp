@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>  
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+<%@taglib prefix="spring"  uri="http://www.springframework.org/tags"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
 <!-- saved from url=(0064)http://www.17sucai.com/preview/137615/2015-01-15/demo/index.html -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -262,19 +263,19 @@ button.close {
 		</DIV>
 		<P style="padding: 30px 0px 10px; position: relative;">
 			<SPAN class="u_logo"></SPAN> 
-			<INPUT class="ipt" type="text" id="username"  name= "username" placeholder="请输入用户名或邮箱" value="">
+			<INPUT class="ipt" type="text" id="username"  name= "username" placeholder='<spring:message code="username"/>' value="">
 		</P>
 		<P style="position: relative;">
 			<SPAN class="p_logo"></SPAN> 
-			<INPUT class="ipt" id="password" name="password" type="password" placeholder="请输入密码" value="">
+			<INPUT class="ipt" id="password" name="password" type="password" placeholder='<spring:message code="password"/>' value="">
 		</P>
 		<DIV
 			style="height: 50px; line-height: 50px; margin-top: 30px; border-top-color: rgb(231, 231, 231); border-top-width: 1px; border-top-style: solid;">
 			<P style="margin: 0px 35px 20px 45px;">
-				<SPAN style="float: left;"><A style="color: rgb(204, 204, 204);" href="#">忘记密码?</A></SPAN> 
-				<SPAN style="float: right;"><A style="color: rgb(204, 204, 204); margin-right: 10px;" href="#">注册</A>
+				<SPAN style="float: left;"><A style="color: rgb(204, 204, 204);" href="#"><spring:message code="forgetthepassword"/></A></SPAN> 
+				<SPAN style="float: right;"><A style="color: rgb(204, 204, 204); margin-right: 10px;" href="#"><spring:message code="register"/></A>
 				<A style="background: rgb(0, 142, 173); padding: 7px 10px; border-radius: 4px; border: 1px solid rgb(26, 117, 152); border-image: none; color: rgb(255, 255, 255); font-weight: bold;"
-					href="#" onclick="checkForm();">登录</A> 
+					href="#" onclick="checkForm();"><spring:message code="login"/></A> 
 				</SPAN>
 			</P>
 		</DIV>

@@ -37,7 +37,7 @@ public class LoginController {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月8日 下午3:39:36
 	 */
 	@SuppressWarnings("finally")

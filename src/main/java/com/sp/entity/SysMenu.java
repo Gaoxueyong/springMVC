@@ -5,7 +5,7 @@ import java.util.Date;
  * 
  * @ClassName SysMenu
  * @Description 系统菜单
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年12月5日 上午11:40:06
  * @version 1.0.0
  */

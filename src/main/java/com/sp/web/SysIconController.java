@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 
  * @ClassName SysIconController
  * @Description  图标控制器
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年12月2日 上午11:27:06
  * @version 1.0.0
  */
@@ -28,7 +28,7 @@ public class SysIconController {
 	 * @param response
 	 * @param model
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月21日 上午11:16:59
 	 */
 	@RequestMapping(value="sysIconSelect")

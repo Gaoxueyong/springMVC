@@ -19,7 +19,7 @@ import com.sp.service.SysMenuService;
  * 
  * @ClassName MainController
  * @Description 登录成功后跳转至主页面
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年11月8日 下午3:46:24
  * @version 1.0.0
  */

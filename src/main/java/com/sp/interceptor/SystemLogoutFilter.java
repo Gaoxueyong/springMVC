@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * 
  * @ClassName SystemLogoutFilter
  * @Description  重写logoutFilter 在推出时清理数据
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2017年1月3日 下午5:32:21
  * @version 1.0.0
  */

@@ -26,7 +26,7 @@ import net.sf.json.JSONObject;
  * 
  * @ClassName SysUserController
  * @Description 组织机构控制器
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年11月14日 下午5:42:03
  * @version 1.0.0
  */
@@ -42,7 +42,7 @@ public class SysOfficeController {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月15日 下午2:21:27
 	 */
 	@RequestMapping(value="list")
@@ -74,7 +74,7 @@ public class SysOfficeController {
 	 * @param response
 	 * @param model
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月21日 上午11:16:59
 	 */
 	@RequestMapping(value="sysOfficeIndex")
@@ -92,7 +92,7 @@ public class SysOfficeController {
 	 * @param response
 	 * @param model
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月21日 上午11:16:59
 	 */
 	@RequestMapping(value="sysOfficeTree")
@@ -108,7 +108,7 @@ public class SysOfficeController {
 	 * @param request
 	 * @param response
 	 * @param model
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月21日 上午11:17:55
 	 * @throws IOException 
 	 */
@@ -128,7 +128,7 @@ public class SysOfficeController {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月15日 下午2:23:35
 	 */
 	@RequestMapping(value="sysOfficeForm")
@@ -152,7 +152,7 @@ public class SysOfficeController {
 	 * @Description 保存、修改组织机构信息
 	 * @param request
 	 * @param response
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月15日 下午2:22:30
 	 * @throws IOException 
 	 */
@@ -194,7 +194,7 @@ public class SysOfficeController {
 	 * @Description 保存、修改组织机构信息
 	 * @param request
 	 * @param response
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月15日 下午2:22:30
 	 * @throws IOException 
 	 */

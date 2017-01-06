@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
   * 
   * @ClassName SystemInterceptor
   * @Description 系统拦截器  拦截器执行顺序  先执行 preHandle  再执行 具体controller方法  再执行  postHandle 最后执行 afterCompletion
-  * @author:Gaoxueyong
+  * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
   * @Date 2017年1月4日 下午2:50:54
   * @version 1.0.0
   */

@@ -3,7 +3,7 @@ package com.sp.entity;
  * 
  * @ClassName SysUserRole
  * @Description 用户角色
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年12月7日 下午3:09:16
  * @version 1.0.0
  */

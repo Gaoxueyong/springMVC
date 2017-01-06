@@ -8,7 +8,7 @@ import com.sp.entity.SysRoleMenu;
  * 
  * @ClassName SysRoleMenuDao
  * @Description 角色菜单Dao
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年12月7日 下午3:17:51
  * @version 1.0.0
  */
@@ -21,7 +21,7 @@ public interface SysRoleMenuDao {
 	 * @Description 删除角色菜单
 	 * @param paramerMap  roleId , menuId
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年12月7日 下午3:35:10
 	 */
     int deleteSysRoleMenuByPrimaryKey(Map<String, Object> paramerMap);
@@ -31,7 +31,7 @@ public interface SysRoleMenuDao {
      * @Description 根据角色id进行删除
      * @param roleId
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月7日 下午4:24:19
      */
     int deleteSysRoleMenuByRoleId(String roleId);
@@ -41,7 +41,7 @@ public interface SysRoleMenuDao {
      * @Description 根据角色Id获取角色所包含的菜单
      * @param paramerMap  roleId
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月7日 下午5:10:30
      */
     List<SysRoleMenu> getSysRoleMenuListByRoleId(Map<String, Object> paramerMap);

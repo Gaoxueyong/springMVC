@@ -5,7 +5,7 @@ import java.util.Date;
  * 
  * @ClassName SysRole
  * @Description 角色
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年12月2日 上午10:34:59
  * @version 1.0.0
  */

@@ -17,7 +17,7 @@ import com.sp.utils.Page;
  * 
  * @ClassName SysAreaServiceImpl
  * @Description 区域管理实现类
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年11月22日 上午11:38:54
  * @version 1.0.0
  */
@@ -86,7 +86,7 @@ public class SysAreaServiceImpl implements SysAreaService {
      * @Description 根据主键ID删除其本身以及其下属区域
      * @param id
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年11月30日 上午10:49:46
      */
 	@Override
@@ -101,7 +101,7 @@ public class SysAreaServiceImpl implements SysAreaService {
      * @param areaList
      * @param resultList
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月13日 上午10:00:41
      */
 	@Override
@@ -115,7 +115,7 @@ public class SysAreaServiceImpl implements SysAreaService {
 	 * @param rootList
 	 * @param menuList
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年12月12日 上午11:47:51
 	 */
 	public List<SysArea> getAreaTreeList(List<SysArea> areaRootList,List<SysArea> areaList,Map<String, Object> containMap){

@@ -6,7 +6,7 @@ import java.util.Date;
  * 
  * @ClassName SysOffice
  * @Description 机构实体
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年11月21日 上午10:26:13
  * @version 1.0.0
  */

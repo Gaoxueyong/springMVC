@@ -3,7 +3,7 @@ package com.sp.entity;
  * 
  * @ClassName SysRoleMenu
  * @Description 角色菜单
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年12月7日 下午3:08:58
  * @version 1.0.0
  */

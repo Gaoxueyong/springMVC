@@ -13,7 +13,7 @@ import com.sp.utils.Page;
  * 
  * @ClassName SysMenuServiceImpl
  * @Description 菜单service实现
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年12月2日 上午11:20:14
  * @version 1.0.0
  */
@@ -28,7 +28,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * @Description 插入菜单对象
 	 * @param SysMenu
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年12月2日 上午11:14:46
 	 */
 	@Override
@@ -41,7 +41,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * @Description 删除(物理删除)
 	 * @param id
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年12月2日 上午11:08:20
 	 */
 	@Override
@@ -54,7 +54,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @Description 删除(逻辑删除)
      * @param id
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月2日 上午11:08:48
      */
 	@Override
@@ -67,7 +67,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @Description 更新菜单对象
      * @param SysMenu
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月2日 上午11:14:31
      */
 	@Override
@@ -80,7 +80,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @Description 根据主键ID获取菜单对象
      * @param id
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月2日 上午11:13:52
      */
 	@Override
@@ -93,7 +93,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @Description 获取菜单列表
      * @param paramerMap
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年11月21日 上午10:43:33
      */
 	@Override
@@ -106,7 +106,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @Description 获取菜单列表
      * @param paramerMap
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年11月21日 上午10:43:33
      */
 	@Override
@@ -133,7 +133,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @Description 获取菜单列表总数
      * @param paramerMap
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年11月21日 上午10:43:38
      */
 	@Override
@@ -146,7 +146,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @Description 获取菜单树
      * @param paramerMap
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月5日 下午2:32:21
      */
 	@Override
@@ -160,7 +160,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @Description 根据角色id获取改角色的角色树  那些选中了 那些没选中
      * @param roleId
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月7日 下午5:46:11
      */
 	@Override
@@ -174,7 +174,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param menuRoot
      * @param menuList
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月9日 下午3:35:18
      */
 	@Override
@@ -190,7 +190,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	 * @param rootList
 	 * @param menuList
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年12月12日 上午11:47:51
 	 */
 	public List<SysMenu> getMenuRootList(List<SysMenu> rootList,List<SysMenu> menuList,Map<String, Object> containMap){
@@ -225,7 +225,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @Description 根据用户名账号获取菜单资源
      * @param paramerMap   account
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月27日 上午11:50:22
      */
 	@Override
@@ -236,7 +236,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 	/**
      * 
      * @Description 获取菜单列表 根据登录人权限
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * @param paramerMap
      * @return
      * Create at: 2017年1月3日 下午2:21:39

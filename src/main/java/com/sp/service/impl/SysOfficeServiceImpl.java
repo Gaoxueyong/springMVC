@@ -19,7 +19,7 @@ import com.sp.utils.Page;
  * 
  * @ClassName SysOfficeServiceImpl
  * @Description 组织机构接口实现
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年11月21日 上午10:47:39
  * @version 1.0.0
  */
@@ -98,7 +98,7 @@ public class SysOfficeServiceImpl implements SysOfficeService{
      * @Description 删除目标机构及其下属机构
      * @param paramerMap
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年11月30日 下午3:49:18
      */
 	@Override
@@ -113,7 +113,7 @@ public class SysOfficeServiceImpl implements SysOfficeService{
      * @param officeList
      * @param resultList
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月13日 上午10:00:41
      */
 	@Override
@@ -128,7 +128,7 @@ public class SysOfficeServiceImpl implements SysOfficeService{
 	 * @param rootList
 	 * @param menuList
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年12月12日 上午11:47:51
 	 */
 	public List<SysOffice> getOfficeList(List<SysOffice> menuRootList,List<SysOffice> officeList,Map<String, Object> containMap){

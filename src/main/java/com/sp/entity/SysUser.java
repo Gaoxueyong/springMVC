@@ -10,7 +10,7 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
  * 
  * @ClassName SysUser
  * @Descriptio  用户实体
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年11月15日 上午10:50:51
  * @version 1.0.0
  */

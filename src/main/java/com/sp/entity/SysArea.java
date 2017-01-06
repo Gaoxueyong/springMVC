@@ -6,7 +6,7 @@ import java.util.Date;
  * 
  * @ClassName SysArea
  * @Description 区域管理
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年11月22日 上午11:17:03
  * @version 1.0.0
  */

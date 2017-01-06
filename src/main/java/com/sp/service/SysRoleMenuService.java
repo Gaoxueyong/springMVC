@@ -9,7 +9,7 @@ import com.sp.entity.SysRoleMenu;
  * 
  * @ClassName SysRoleMenuService
  * @Description 角色菜单service
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年12月7日 下午3:41:27
  * @version 1.0.0
  */
@@ -22,7 +22,7 @@ public interface SysRoleMenuService {
 	 * @Description 删除角色菜单
 	 * @param paramerMap  #{roleId} , #{menuId}
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年12月7日 下午3:35:10
 	 */
     int deleteSysRoleMenuByPrimaryKey(Map<String, Object> paramerMap);
@@ -32,7 +32,7 @@ public interface SysRoleMenuService {
      * @Description 根据角色Id获取角色所包含的菜单
      * @param paramerMap roleId
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月7日 下午5:10:30
      */
     List<SysRoleMenu> getSysRoleMenuListByRoleId(Map<String, Object> paramerMap);

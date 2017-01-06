@@ -8,7 +8,7 @@ import com.sp.entity.SysUser;
  * 
  * @ClassName SysUserService
  * @Description 用户service
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年11月15日 上午9:51:10
  * @version 1.0.0
  */
@@ -22,7 +22,7 @@ public interface SysUserService {
      * @Description 逻辑删除
      * @param paramerMap
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月8日 下午3:19:48
      */
     int deleteSysUserByPrimaryKey(Map<String, Object> paramerMap);
@@ -32,7 +32,7 @@ public interface SysUserService {
      * @Description 物理删除
      * @param id
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月8日 下午3:19:57
      */
     int deleteSysUserByPrimaryKeyReal(String id);
@@ -44,7 +44,7 @@ public interface SysUserService {
 	 * @Description 更新状态  登录成功后进行
 	 * @param sysUser
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年12月8日 下午3:39:11
 	 */
 	int updateSysUserStatus(SysUser sysUser);
@@ -56,7 +56,7 @@ public interface SysUserService {
 	 * @Description 获取用户列表
 	 * @param paramerMap
 	 * @return
-	 * @author: Gaoxueyong Create at: 2016年12月8日 下午3:06:51
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai Create at: 2016年12月8日 下午3:06:51
 	 */
 	List<SysUser> getSysUserList(Map<String, Object> paramerMap);
 
@@ -65,7 +65,7 @@ public interface SysUserService {
 	 * @Description 获取用户分页列表
 	 * @param paramerMap
 	 * @return
-	 * @author: Gaoxueyong Create at: 2016年11月15日 下午2:13:18
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai Create at: 2016年11月15日 下午2:13:18
 	 */
 	public Page<SysUser> getSysUserListPage(Page<SysUser> page, Map<String, Object> paramerMap);
 
@@ -74,7 +74,7 @@ public interface SysUserService {
 	 * @Description 获取用户列表总数
 	 * @param paramerMap
 	 * @return
-	 * @author: Gaoxueyong Create at: 2016年12月8日 下午3:06:13
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai Create at: 2016年12月8日 下午3:06:13
 	 */
 	public int getSysUserListTotalNum(Map<String, Object> paramerMap);
 
@@ -83,7 +83,7 @@ public interface SysUserService {
 	 * @Description 根据登录名获取用户对象
 	 * @param loginName
 	 * @return
-	 * @author: Gaoxueyong Create at: 2016年12月8日 下午3:06:32
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai Create at: 2016年12月8日 下午3:06:32
 	 */
 	public SysUser getSysUserByLoginName(String loginName);
 }

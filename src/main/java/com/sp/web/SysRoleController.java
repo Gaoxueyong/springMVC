@@ -27,7 +27,7 @@ import com.sp.utils.Page;
  * 
  * @ClassName SysRoleController
  * @Description  角色控制器
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年12月2日 上午11:27:06
  * @version 1.0.0
  */
@@ -44,7 +44,7 @@ public class SysRoleController {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月15日 下午2:21:27
 	 */
 	@RequestMapping(value="list")
@@ -67,7 +67,7 @@ public class SysRoleController {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月15日 下午2:23:35
 	 */
 	@RequestMapping(value="sysRoleForm")
@@ -96,7 +96,7 @@ public class SysRoleController {
 	 * @Description 保存、修改角色信息
 	 * @param request
 	 * @param response
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月15日 下午2:22:30
 	 * @throws IOException 
 	 */
@@ -135,7 +135,7 @@ public class SysRoleController {
 	 * @Description 保存、修改角色信息
 	 * @param request
 	 * @param response
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月15日 下午2:22:30
 	 * @throws IOException 
 	 */

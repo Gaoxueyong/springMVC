@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @ClassName Page
  * @Description   分页工具类  支持mysql （oracle的以后再补充）
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年11月16日 下午5:32:25
  * @version 1.0.0
  * @param <T>
@@ -53,7 +53,7 @@ public class Page<T> {
 	/**
 	 * 
 	 * @Description 初始化参数
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月17日 上午10:48:38
 	 */
 	//public void initialize(List<T> list,Integer pageSize,Integer totalNum,Integer currentNo){

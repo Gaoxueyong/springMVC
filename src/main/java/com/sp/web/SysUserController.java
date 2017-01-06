@@ -30,7 +30,7 @@ import com.sp.utils.Page;
  * 
  * @ClassName SysUserController
  * @Description 用户控制器
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年11月14日 下午5:42:03
  * @version 1.0.0
  */
@@ -51,7 +51,7 @@ public class SysUserController {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月15日 下午2:21:27
 	 */
 	@RequestMapping(value="list")
@@ -77,7 +77,7 @@ public class SysUserController {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月15日 下午2:23:35
 	 */
 	@RequestMapping(value="sysUserForm")
@@ -119,7 +119,7 @@ public class SysUserController {
 	 * @Description 保存、修改用户信息
 	 * @param request
 	 * @param response
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月15日 下午2:22:30
 	 * @throws IOException 
 	 */
@@ -165,7 +165,7 @@ public class SysUserController {
 	 * @Description 保存、修改用户信息
 	 * @param request
 	 * @param response
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年11月15日 下午2:22:30
 	 * @throws IOException 
 	 */

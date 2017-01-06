@@ -19,7 +19,7 @@ import com.sp.utils.DateUtils;
  * 
  * @ClassName LogInterceptor
  * @Description 日志拦截器 拦截器执行顺序  先执行 preHandle  再执行 具体controller方法  再执行  postHandle 最后执行 afterCompletion
- * @author:Gaoxueyong
+ * @author:Gaoxueyong  http://blog.csdn.net/fenfenguai
  * @Date 2016年11月8日 下午2:52:56
  * @version 1.0.0
  */

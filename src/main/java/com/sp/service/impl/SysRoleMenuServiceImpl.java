@@ -25,7 +25,7 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService{
 	 * @Description 删除角色菜单
 	 * @param paramerMap  roleId , menuId
 	 * @return
-	 * @author: Gaoxueyong
+	 * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
 	 * Create at: 2016年12月7日 下午3:35:10
 	 */
 	@Override
@@ -38,7 +38,7 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService{
      * @Description 根据角色Id获取角色所包含的菜单
      * @param paramerMap   roleId
      * @return
-     * @author: Gaoxueyong
+     * @author: Gaoxueyong  http://blog.csdn.net/fenfenguai
      * Create at: 2016年12月7日 下午5:10:30
      */
 	@Override

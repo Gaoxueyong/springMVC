@@ -2,6 +2,9 @@ package com.sp.interceptor;
 
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,9 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.NamedThreadLocal;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sp.entity.SysProject;
+import com.sp.service.SysProjectService;
 import com.sp.utils.DateUtils;
 
 
@@ -28,7 +34,6 @@ public class LogInterceptor implements  HandlerInterceptor{
 	 * 日志对象
 	 */
 	protected Logger logger = LoggerFactory.getLogger(getClass());
-
 
 	private static final ThreadLocal<Long> startTimeThreadLocal = new NamedThreadLocal<Long>("ThreadLocal StartTime");
 	

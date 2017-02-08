@@ -2,8 +2,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <%@taglib prefix="spring"  uri="http://www.springframework.org/tags"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
-<!-- saved from url=(0064)http://www.17sucai.com/preview/137615/2015-01-15/demo/index.html -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <HTML xmlns="http://www.w3.org/1999/xhtml">
 <HEAD>
 <META content="IE=11.0000" http-equiv="X-UA-Compatible">
@@ -281,11 +279,11 @@ button.close {
 		</DIV>
 	</DIV>
 	</form>
-	<!-- <div style="text-align: center;">
+	<div style="text-align: center;">
 		<p>
-			来源:<a href="http://www.mycodes.net/" target="_blank">源码之家</a>
+			 ${remark }
 		</p>
-	</div> -->
+	</div>
 	<br>
 	<div class="alert alert-error ${empty loginMessage ? 'hide' : ''}"" id="errorDiv">
 		<button class="close" data-dismiss="alert" onclick="hiden();">×</button>

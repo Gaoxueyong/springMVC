@@ -59,4 +59,7 @@
 			<bean class="com.sp.interceptor.SystemInterceptor"></bean>
 		</mvc:interceptor>
      </mvc:interceptors>
+     
+     <!-- 当Spring容器启动完成后执行下面的这个Bean -->
+	<bean class="com.sp.listener.SysInitListener"/>
 </beans>  

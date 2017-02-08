@@ -1,6 +1,11 @@
 package com.sp.interceptor;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,6 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.sp.entity.SysProject;
+import com.sp.service.SysProjectService;
 
 
 
@@ -20,6 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
   * @version 1.0.0
   */
 public class SystemInterceptor implements  HandlerInterceptor{
+	
+	
 	/**
 	 * 日志对象
 	 */
@@ -63,6 +73,7 @@ public class SystemInterceptor implements  HandlerInterceptor{
 			 }
 			 
 		 }
+		 
 		// System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>2");
 	}
 

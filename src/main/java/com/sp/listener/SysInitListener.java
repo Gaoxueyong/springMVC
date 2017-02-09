@@ -4,12 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.sp.entity.SysProject;
-import com.sp.service.SysProjectService;
+import com.sp.service.impl.SysProjectServiceImpl;
 
 /******************************************************************
  *    http://blog.csdn.net/fenfenguai  
@@ -24,6 +28,7 @@ import com.sp.service.SysProjectService;
  *
  *****************************************************************/
 public class SysInitListener implements ApplicationListener<ContextRefreshedEvent>{
+	 
 
 	/**
 	 * @Description 执行初始化方法
@@ -33,18 +38,29 @@ public class SysInitListener implements ApplicationListener<ContextRefreshedEven
 	 */
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		//需要执行的逻辑代码，当spring容器初始化完成后就会执行该方法。
-	/*	Map<String, Object> paramerMap = new HashMap<String,Object>();
-		SysProjectService	sysProjectService = WebApplicationContextUtils.getWebApplicationContext(event.getApplicationContext()).getBean(SysProjectService.class);
-		List<SysProject> list = sysProjectService.querySysProjectList(paramerMap);
-		for(SysProject project:list){
-			if("1".equals(project.getType())){
-				modelAndView.addObject("projectName",project.getName());
-			}else if("2".equals(project.getType())){
-				modelAndView.addObject("remark",project.getName());
+		System.out.println("-----------------------------------");
+		System.out.println("》》》》》》》》》》》》》》》系统初始化《《《《《《《《《《《《《《");
+		System.out.println("-----------------------------------");
+		//防止初始化两次
+		//System.out.println("event.getApplicationContext().getParent()==="+event.getApplicationContext().getParent());
+		//if(event.getApplicationContext().getParent()==null){
+			ApplicationContext applicationContext = event.getApplicationContext();
+			//applicationContext.
+			//servletContext.setAttribute("test", ">>>>>>>>>>>>>>>>>>>>>>>>>");
+			SysProjectServiceImpl	sysProjectService = event.getApplicationContext().getBean(SysProjectServiceImpl.class);
+			//需要执行的逻辑代码，当spring容器初始化完成后就会执行该方法。
+			Map<String, Object> paramerMap = new HashMap<String,Object>();
+			List<SysProject> list = sysProjectService.querySysProjectList(paramerMap);
+			for(SysProject project:list){
+				if("1".equals(project.getType())){
+					//modelAndView.addObject("projectName",project.getName());
+				}else if("2".equals(project.getType())){
+					//modelAndView.addObject("remark",project.getName());
+				}
 			}
-		}
-		*/
+			//System.out.println("**********************"+servletContext.getAttribute("test"));
+		//}
+		
 	}
 
 	 

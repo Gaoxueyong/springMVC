@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.sp.dao.SysProjectDao;
 import com.sp.entity.SysProject;
 import com.sp.service.SysProjectService;
@@ -21,6 +23,7 @@ import com.sp.service.SysProjectService;
  *    2017年2月7日 下午4:27:44- first revision
  *
  *****************************************************************/
+@Service
 public class SysProjectServiceImpl implements SysProjectService {
 
 	@Resource

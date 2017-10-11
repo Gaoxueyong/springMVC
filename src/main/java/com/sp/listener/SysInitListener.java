@@ -4,13 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.sp.entity.SysProject;
 import com.sp.service.impl.SysProjectServiceImpl;

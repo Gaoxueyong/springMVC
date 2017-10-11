@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.sp.dao.SysUserDao;
 import com.sp.dao.SysUserRoleDao;
-import com.sp.entity.SysRole;
 import com.sp.entity.SysUser;
 import com.sp.entity.SysUserRole;
 import com.sp.service.SysUserService;

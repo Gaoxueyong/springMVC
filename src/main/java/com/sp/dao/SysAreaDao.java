@@ -3,6 +3,8 @@ package com.sp.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import com.sp.entity.SysArea;
 /**
  * 
@@ -12,6 +14,7 @@ import com.sp.entity.SysArea;
  * @Date 2016年11月22日 上午11:19:14
  * @version 1.0.0
  */
+@Repository
 public interface SysAreaDao {
 	
 	int insertSysArea(SysArea sysArea);

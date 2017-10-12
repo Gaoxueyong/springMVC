@@ -3,6 +3,8 @@ package com.sp.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import com.sp.entity.SysRole;
 
 /**
@@ -13,6 +15,7 @@ import com.sp.entity.SysRole;
  * @Date 2016年12月2日 上午10:37:59
  * @version 1.0.0
  */
+@Repository
 public interface SysRoleDao {
 	
 	/**

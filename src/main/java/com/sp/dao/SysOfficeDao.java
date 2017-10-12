@@ -3,6 +3,8 @@ package com.sp.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import com.sp.entity.SysOffice;
 /**
  * 
@@ -12,6 +14,7 @@ import com.sp.entity.SysOffice;
  * @Date 2016年11月21日 上午10:26:43
  * @version 1.0.0
  */
+@Repository
 public interface SysOfficeDao {
 	
 	/**

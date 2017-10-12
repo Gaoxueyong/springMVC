@@ -3,6 +3,8 @@ package com.sp.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import com.sp.entity.SysProject;
 /**
  * ****************************************************************
@@ -18,6 +20,7 @@ import com.sp.entity.SysProject;
  *
  ****************************************************************
  */
+@Repository
 public interface SysProjectDao {
 	
 	/**

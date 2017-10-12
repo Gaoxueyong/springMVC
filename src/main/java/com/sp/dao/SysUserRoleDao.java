@@ -3,7 +3,8 @@ package com.sp.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.sp.entity.SysUser;
+import org.springframework.stereotype.Repository;
+
 import com.sp.entity.SysUserRole;
 /**
  * 
@@ -13,6 +14,7 @@ import com.sp.entity.SysUserRole;
  * @Date 2016年12月7日 下午3:17:16
  * @version 1.0.0
  */
+@Repository
 public interface SysUserRoleDao {
 
     int insertSysUserRole(SysUserRole sysUserRole);

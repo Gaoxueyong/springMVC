@@ -3,6 +3,8 @@ package com.sp.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import com.sp.entity.SysMenu;
 /**
  * 
@@ -12,6 +14,7 @@ import com.sp.entity.SysMenu;
  * @Date 2016年12月5日 上午11:37:10
  * @version 1.0.0
  */
+@Repository
 public interface SysMenuDao {
 	
 	/**

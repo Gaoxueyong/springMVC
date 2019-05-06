@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50617
+Source Server         : localConnect
+Source Server Version : 50723
 Source Host           : localhost:3306
 Source Database       : springmvc
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2017-02-08 18:46:47
+Date: 2019-05-06 18:32:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -95,7 +95,7 @@ INSERT INTO `sys_menu` VALUES ('20161206113400017', '28', '0,1,27,28,', '区域�
 INSERT INTO `sys_menu` VALUES ('20161206113500027', '28', '0,1,27,28,', '角色管理', '50', '/sys/role/list', null, 'icon-lock', '1', '', '9', '2016-12-06 11:35:27', null, null, '', '0');
 INSERT INTO `sys_menu` VALUES ('20161206113600006', '28', '0,1,27,28,', '菜单管理', '60', '/sys/menu/sysMenuIndex', null, 'icon-list-alt', '1', '', '9', '2016-12-06 11:36:06', '20161230160000015', '2017-01-04 16:53:02', '', '0');
 INSERT INTO `sys_menu` VALUES ('20161206143500041', '1', '0,1,', '巨魔战将', null, '', null, 'icon-adjust', '1', '', '9', '2016-12-06 14:35:42', null, null, '', '1');
-INSERT INTO `sys_menu` VALUES ('20161207110200030', '71', '0,1,27,71,', '个人文件', '30', '', null, 'icon-folder-open-alt', '1', '', '9', '2016-12-07 11:02:30', null, null, '', '0');
+INSERT INTO `sys_menu` VALUES ('20161207110200030', '71', '0,1,27,71,', '个人文件', '30', '/sys/file/manage', null, 'icon-folder-open-alt', '1', '', '9', '2016-12-07 11:02:30', '20161230160000015', '2019-05-05 16:08:53', '', '0');
 INSERT INTO `sys_menu` VALUES ('20170103101500007', '20161206112900056', '0,1,27,28,20161206112900056,', '增加', '21', '', null, '', '1', 'sys:user:add', '20161230160000015', '2017-01-03 10:15:07', null, null, '用户管理列表下的增加按钮', '0');
 INSERT INTO `sys_menu` VALUES ('20170103101500051', '20161206112900056', '0,1,27,28,20161206112900056,', '修改', '22', '', null, '', '1', 'sys:user:edit', '20161230160000015', '2017-01-03 10:15:51', null, null, '用户管理列表下的修改按钮', '0');
 INSERT INTO `sys_menu` VALUES ('20170103101600022', '20161206112900056', '0,1,27,28,20161206112900056,', '删除', '23', '', null, '', '1', 'sys:user:del', '20161230160000015', '2017-01-03 10:16:23', null, null, '用户管理列表下的删除按钮', '0');
@@ -338,7 +338,8 @@ CREATE TABLE `sys_user` (
   KEY `sys_user_login_name` (`login_name`),
   KEY `sys_user_company_id` (`company_id`),
   KEY `sys_user_update_date` (`update_date`),
-  KEY `sys_user_del_flag` (`del_flag`)
+  KEY `sys_user_del_flag` (`del_flag`),
+  KEY `query_index_o` (`login_name`,`password`,`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
@@ -356,7 +357,7 @@ INSERT INTO `sys_user` VALUES ('18', null, null, 'az', '123', '000010', '矮人�
 INSERT INTO `sys_user` VALUES ('19', null, null, 'fw', '123', '000011', '斧王', '', '', '', null, null, null, null, '1', '1', '2016-11-18 09:50:17', '1', '2016-11-18 09:50:17', 'Dota英雄', '0', null, null);
 INSERT INTO `sys_user` VALUES ('20', null, null, 'dom', '123', '000012', '末日使者', '', '', '', null, null, null, null, '1', '1', '2016-11-18 09:51:23', '1', '2016-11-18 09:51:23', 'Dota英雄', '0', null, null);
 INSERT INTO `sys_user` VALUES ('20161208160100011', null, '', 'csry', '123456', '000028', '测试人员', '', '', '', null, null, '192.168.92.24', '2017-01-09 09:35:47', '1', '9', '2016-12-08 16:01:11', '20161230160000015', '2017-01-03 10:57:46', '', '0', null, '山东省总公司');
-INSERT INTO `sys_user` VALUES ('20161230160000015', null, '', 'admin', '123456', '000000', '超级管理员', 'xueyong89@126.com', '15838258295', '15838258295', null, null, '192.168.92.24', '2017-02-06 11:22:22', '1', '9', '2016-12-30 16:00:15', '9', '2016-12-30 16:19:57', '超级管理员', '0', null, '机构管理');
+INSERT INTO `sys_user` VALUES ('20161230160000015', null, '', 'admin', '123456', '000000', '超级管理员', 'xueyong89@126.com', '15838258295', '15838258295', null, null, '30.40.44.14', '2019-05-06 18:25:37', '1', '9', '2016-12-30 16:00:15', '9', '2016-12-30 16:19:57', '超级管理员', '0', null, '机构管理');
 INSERT INTO `sys_user` VALUES ('21', null, null, 'xg', '123', '000013', '食尸鬼', '', '', '', null, null, null, null, '1', '1', '2016-11-18 09:51:59', '1', '2016-11-18 09:51:59', '末日使者', '0', null, null);
 INSERT INTO `sys_user` VALUES ('22', null, null, 'sl', '123', '000014', '神灵武士', '', '', '', null, null, null, null, '1', '1', '2016-11-18 09:52:31', '1', '2016-11-18 09:52:31', 'Dota英雄', '0', null, null);
 INSERT INTO `sys_user` VALUES ('23', null, null, 'sv', '123', '000015', 'SV', '', '', '', null, null, null, null, '1', '1', '2016-11-18 11:48:05', '1', '2016-11-18 11:48:05', 'Dota英雄', '0', null, null);

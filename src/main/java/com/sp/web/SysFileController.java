@@ -104,6 +104,7 @@ public class SysFileController {
                 //删除临时文件
                 tempFile.delete();
             }
+            fileOutputStream.close();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
